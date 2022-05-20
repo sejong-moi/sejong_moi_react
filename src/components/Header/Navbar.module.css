@@ -1,0 +1,20 @@
+.navbar{
+    border-bottom: 2px solid #F76B6B;
+}
+.container {
+    max-width: 980px;
+    margin: 0 auto;
+ 
+}
+.center_clubs{
+    display:flex;
+}
+.clubs {
+    display:block;
+    padding: 5px;
+    color: #F37272;
+    margin-right: 20px;
+}
+.clubs:hover{
+    text-decoration: underline;
+}
