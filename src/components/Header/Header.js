@@ -8,16 +8,24 @@ import profile from "../../images/profile.svg";
 import store from '../../store';
 
 
-function Header({authenticated}) {
+function Header() {
     //const auth = store.getState().user.userAuth;
     
-    const [auth, setAuth] = useState(authenticated);
+    const [auth, setAuth] = useState();
     const onClick = () => {
         setAuth(false);
         localStorage.clear();
         console.log("clear localstorage");
+        window.location.replace('/');
+        
     }
     useEffect(()=>{
+        if (localStorage.getItem('login-token')){
+            setAuth(true);
+        }
+        else{
+            setAuth(false);
+        }
         console.log("header ",auth);
     },[])
     return (

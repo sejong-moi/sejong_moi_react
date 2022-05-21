@@ -17,27 +17,16 @@ import { useEffect, useState } from "react";
 
 
 function App(){
-  const [auth,setAuth] = useState();
-
-  useEffect(()=>{
-    if (localStorage.getItem('login-token') === null) {
-      setAuth(false)
-    }
-    else {
-      setAuth(true)
-    }
-    console.log(auth);
-  },[]);
 
   return <Router>
-    <Header authenticated = {auth}/>
+    <Header />
     <Navbar />
     
     <Routes>
       <Route path = "/center/:clubcategory" element = {<ClubInfo/>} />    
       <Route path = "/center/:clubcategory/:clubname/detail" element={<ClubDetail/>}/> 
       <Route path = "/center/:clubname/apply" element={<Apply/>}/>   
-      <Route path = "/login" element={<Login authenticated = {auth}/>}/>
+      <Route path = "/login" element={<Login />}/>
       <Route path = "/mypage" element={<MyPage/>}/>
 
       <Route path = "/" element={<Main/>}/>       

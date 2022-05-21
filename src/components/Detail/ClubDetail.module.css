@@ -8,8 +8,6 @@
     max-width:980px;
     width:80%;
     margin-top:30px;
-    /* border: 1px solid #F66B6B;
-    border-radius: 5px; */
     display:flex;
     flex-direction: column;
     justify-content: center;
@@ -46,8 +44,7 @@
     width:20%;
     height:0;
     overflow: hidden;
-	padding-bottom: 20%;
-    
+	padding-bottom: 20%;    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -66,7 +63,6 @@
 
 .club_name{
     font-size:4vw;
-
     max-width:40%;
     padding-top: 10%;
     margin-left: 2vw;
@@ -74,13 +70,13 @@
 
 .introduction{
     margin-top:50px;
-    width:90%;
-    font-size:1.2vw;
+    width:90%;    
+    font-size: 16px;    
+    font-size:max(16px,1.2vw);
     background: #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 15px;
     padding: 30px 20px;
-
 }
 
 .details{
@@ -88,6 +84,7 @@
     margin-top: 20px;
     display:flex;
     justify-content:flex-start;
+    align-items: center;
 }
 .icon_img{
     max-width: 30px;
@@ -101,8 +98,8 @@
 }
 
 .content{
-    font-size: 1.7vw;
-    padding-top:1.5vw;    
+    font-size: 16px;    
+    font-size:max(16px,1.5vw);   
 }
 
 .btn_apply{
@@ -112,7 +109,8 @@
     border-radius: 5px;
     margin-right: 5px;    
     font-weight: 400;
-    font-size: 2vw;
+    font-size: 16px;    
+    font-size:max(16px,1.7vw);
     color: #FFFFFF;
     float:right;
 }
