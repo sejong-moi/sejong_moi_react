@@ -1,10 +1,10 @@
 
-import CreateClub from "../Manager_Com/CreateClub";
+import Home from "../components/Home";
 
 function Main() {
     return (
     <div>
-        {/* <CreateClub/> */}
+        <Home/>
     </div>
     )
     

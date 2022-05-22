@@ -1,18 +1,22 @@
 import React, { useState, useEffect} from 'react';
 import { Link,useParams } from 'react-router-dom';
+import GetLogin from "../Login/GetLogin";
 
 import styles from './ClubDetail.module.css';
 import main_img from "../../images/temp.png";
 import rush from "../../images/rush.svg";
 import call from "../../images/temp_call.svg";
-
-function ClubDetail({authenticated}) {
-    const [auth, setAuth] = useState(authenticated);
+import yes from "../../images/Yes.svg";
+import no from "../../images/No.svg";
+function ClubDetail() {
+    const [auth, setAuth] = useState();
+    const [interest ,setInterest] = useState();
     const clubName = useParams().clubname;
 
     useEffect(() => { 
-        // api에서 clubName 에 대한 정보 get
-        // 동아리 소개글, 전화번호 etc
+        // api에서 clubName 에 대한 동아리 정보 get
+        // api에서 회원의 관심 유무 정보 get
+
         if (!localStorage.getItem('login-token')) {
             setAuth(false);
             console.log("로그인 안 되어있음");
@@ -20,22 +24,35 @@ function ClubDetail({authenticated}) {
         else{
             setAuth(true);
             console.log("로그인 되어있음");
+            //관심있다면
+            setInterest(true);
         }
         console.log(clubName);
       }, []);
+      const onClick = () => {
+          setInterest((prev) => !prev);
+          //api로 정보 보내기
+      }
 
     return (
         <div>{auth? <div className={styles.container}>            
             <div className={styles.inner}>     
                 <div className={styles.main_img}>
                     <img src={main_img} alt="img" className={styles.main__img} />  
-                </div>
-            
+                </div>            
                 <div className={styles.abb}>
                     <div className={styles.club_img}>
                         <img src = {rush} alt = {clubName} ></img>
                     </div>
                     <div className={styles.club_name}>{clubName}</div>
+                    <div className={styles.interest}>
+                        {interest ? 
+                        <img src = {yes} alt = "interesting" onClick={onClick}></img> :
+                        <img src= {no} alt="not interestig" onClick={onClick}></img>
+                        }
+                    </div>
+                    <p className={styles.interest_content}>관심 담기</p>
+                    
                 </div>  
                 {/* <div>동아리 소개글</div> */}
                 <div className= {styles.introduction}>
@@ -81,7 +98,8 @@ function ClubDetail({authenticated}) {
                     <button className={styles.btn_apply} >신청하기</button>
                 </Link>    
             </div>
-        </div>: <div>get login first</div>}
+        </div>: 
+       <GetLogin/>}
                 
     </div>
         

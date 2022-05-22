@@ -1,11 +1,17 @@
 import React, { useState, useEffect} from 'react';
-import { Link,useParams } from 'react-router-dom';
+
+import GetLogin from '../Login/GetLogin';
 import styles from './CreateClub.module.css';
 
-function CreateClub({authenticated}) {
+function CreateClub() {
+    const [auth, setAuth] = useState();
+
     const [imgBase64, setImgBase64] = useState([]); // 미리보기 파일 base64
     const [imgFile, setImgFile] = useState(null);	//파일	
     const options= ["상시 모집","모집 마감","직접 입력"];
+    const onClick = () => {
+
+    }
     const handleChangeFile = (event) => {
         console.log(event.target.files)
         setImgFile(event.target.files);
@@ -35,17 +41,27 @@ function CreateClub({authenticated}) {
     
       }
     useEffect(() => { 
-        
-      }, []);
+      if (!localStorage.getItem('login-token')) {
+        setAuth(false);
+      }
+      else{
+          setAuth(true);
+      }
+    }, []);
 
     return (
-    <div className={styles.container}>
+    <div>
+      {auth? <div className={styles.container}>
       <h1> 동아리 등록 </h1>
       <div className={styles.inner}> 
           <form>
             <div className= {styles.element}>
               <label id="club_name">동아리 명 </label>
               <input type="text" id="club_name"></input>
+            </div>
+            <div className= {styles.element}>
+              <label id="pres_name">현재 회장 학번 (사이트 관리자) </label>
+              <input type="text" id="pres_name"></input>
             </div>
             <div className={styles.file_upload}>
               <p style={{ "font-size": "20px"}}>배경 이미지</p>
@@ -100,18 +116,14 @@ function CreateClub({authenticated}) {
             ))}
             </div>
             </div>
-            {/* {imgBase64.map((item) => {
-                return(
-                  <img
-                    className="d-block w-100"
-                    src={item}
-                    alt="First slide"
-                    style={{width:"100%",height:"550px"}}
-                  />)}) } */}
-          </form>
-          
+            <div>
+                <button className={styles.btn} font-size="21px" width="230px" height="40px" onClick={onClick} >등록</button>
+            </div>
+          </form>          
       </div>    
-    </div>  
+    </div> :
+    <GetLogin/>}
+    </div> 
     );
 }
 

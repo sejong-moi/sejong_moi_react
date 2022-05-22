@@ -5,11 +5,9 @@ import headerstyles from "./Header.module.css";
 import logo from "../../images/LOGO.svg";
 import chat from "../../images/chat.svg";
 import profile from "../../images/profile.svg";
-import store from '../../store';
 
 
 function Header() {
-    //const auth = store.getState().user.userAuth;
     
     const [auth, setAuth] = useState();
     const onClick = () => {

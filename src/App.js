@@ -4,7 +4,9 @@ import Navbar from "./components/Header/Navbar";
 import Header from "./components/Header/Header";
 import ClubInfo from "./components/ClubInfo";
 import ClubDetail from "./components/Detail/ClubDetail";
-import Login from "./components/Login";
+import Login from "./components/Login/Login";
+import CreateClub from "./components/Manager/CreateClub";
+
 import Apply from "./components/Apply/Apply";
 import MyPage from "./routes/MyPage";
 
@@ -13,7 +15,6 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import { useEffect, useState } from "react";
 
 
 function App(){
@@ -28,7 +29,7 @@ function App(){
       <Route path = "/center/:clubname/apply" element={<Apply/>}/>   
       <Route path = "/login" element={<Login />}/>
       <Route path = "/mypage" element={<MyPage/>}/>
-
+      <Route path = "/manage" element = {<CreateClub/>}/>
       <Route path = "/" element={<Main/>}/>       
     </Routes>
   </Router>;

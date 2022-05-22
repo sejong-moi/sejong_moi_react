@@ -1,6 +1,6 @@
 import React, { Redirect,useEffect, useState} from 'react';
 import loginstyles from './Login.module.css';
-import {User_Login} from '../api/api';
+import {User_Login} from '../../api/api';
 
 
 function Login() {
@@ -29,9 +29,9 @@ function Login() {
         console.log(user);
         //임시 fake
 
-        // localStorage.setItem('login-token', "fake");
-        // window.location.replace('/');
-        // setAuth(true);
+        localStorage.setItem('login-token', "fake");
+        window.location.replace('/');
+        setAuth(true);
 
         //여기까지
         
