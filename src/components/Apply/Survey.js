@@ -47,6 +47,7 @@ const Survey = ({questionType,title,uuid,options}) => {
       }
    },[])
    const onSubmit = async (e) => {
+        console.log("send apply");
         e.preventDefault();
         e.persist();
 

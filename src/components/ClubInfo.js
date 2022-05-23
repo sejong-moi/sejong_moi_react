@@ -1,4 +1,4 @@
-import { useEffect, useState,useCallback} from "react";
+import { useEffect, useState} from "react";
 
 import {useParams} from "react-router-dom";
 import ClubSummary from "./ClubSummary";
@@ -11,9 +11,8 @@ function ClubInfo() {
     const [isLoading, setLoading] = useState(false);
     useEffect(()=>{
         //API 받아옴
-        let cate = 'list_'+clubcategory
-        console.log("call", cate);
-        Clubs_Info(cate).then((res)=>{     
+        console.log("call", clubcategory);
+        Clubs_Info(clubcategory).then((res)=>{     
             setClubs([]);
             setClubs([...res.data]);
             setLoading(true);

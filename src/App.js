@@ -10,6 +10,7 @@ import CreateClub from "./components/Manager/CreateClub";
 import Apply from "./components/Apply/Apply";
 import MyPage from "./routes/MyPage";
 
+import CenteredTabs from "./components/Apply_/Tabs";
 import {
   BrowserRouter as Router,
   Routes,
@@ -30,7 +31,9 @@ function App(){
       <Route path = "/login" element={<Login />}/>
       <Route path = "/mypage" element={<MyPage/>}/>
       <Route path = "/manage" element = {<CreateClub/>}/>
-      <Route path = "/" element={<Main/>}/>       
+      <Route path ="/temp" element={<CenteredTabs/>}/>     
+
+      <Route path = "/" element={<Main/>}/>
     </Routes>
   </Router>;
 }
