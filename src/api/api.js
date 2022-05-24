@@ -22,7 +22,7 @@ export const Club_Info = (club_name) => API.get(`http://localhost:8000/club_api/
 })
 
 // 회원 관심 목록 정보 가져오기 
-export const User_Interest = (user) => API.get(`http://localhost:8000/`,{
+export const User_Interest = (user) => API.get(``,{
     headers: {
         'Content-Type': 'application/json',
         Authorization: localStorage.getItem('login-token'),

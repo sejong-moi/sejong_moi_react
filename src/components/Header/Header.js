@@ -3,17 +3,14 @@ import React, { useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import headerstyles from "./Header.module.css";
 import logo from "../../images/LOGO.svg";
-import chat from "../../images/chat.svg";
 import profile from "../../images/profile.svg";
-
+import { getCookie, setCookie } from '../../api/cookie';
 
 function Header() {
     
     const [auth, setAuth] = useState();
     const onClick = () => {
         setAuth(false);
-        localStorage.clear();
-        console.log("clear localstorage");
         window.location.replace('/');
         
         fetch('http://localhost:8000/login_api/logout',{
@@ -26,7 +23,7 @@ function Header() {
         });
     }
     useEffect(()=>{
-        if (localStorage.getItem('login-token')){
+        if (getCookie('jwt')){
             setAuth(true);
         }
         else{

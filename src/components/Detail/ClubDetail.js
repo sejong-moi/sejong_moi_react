@@ -1,7 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { Link,useParams } from 'react-router-dom';
 import GetLogin from "../Login/GetLogin";
-import {User_Info} from "../../api/api";
 
 import styles from './ClubDetail.module.css';
 import main_img from "../../images/temp.png";
@@ -10,45 +9,86 @@ import call from "../../images/temp_call.svg";
 import yes from "../../images/Yes.svg";
 import no from "../../images/No.svg";
 import { getCookie, setCookie } from '../../api/cookie';
+import { User_Info } from '../../api/api';
+
 function ClubDetail() {
     const [auth, setAuth] = useState();
     const [interest ,setInterest] = useState();
     const clubName = useParams().clubname;
-    const [user,setUser] = useState([]);
-    useEffect(() => { 
+    const [isLoading,setisLoading] = useState(false);
+    useEffect(async () => { 
         // api에서 clubName 에 대한 동아리 정보 get
         // api에서 회원의 관심 유무 정보 get
-
-        if (!localStorage.getItem('login-token')) {
+        setisLoading(true);
+        if (!getCookie('jwt')) {
             setAuth(false);
-            console.log("로그인 안 되어있음");
         }
         else{
             setAuth(true);
-            console.log("로그인 되어있음");
             //관심있다면
             setInterest(true);
         }
-        console.log(clubName);
 
-        fetch('http://localhost:8000/login_api/user',{
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Credentials': 'true',
-                'Cookie' : getCookie('jwt'),
-            },
-            credentials: 'include',
+         
+        // fetch('/login_api/user',{
+        //     method: 'GET',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Access-Control-Allow-Credentials': 'true',
+        //         'Cookie' : getCookie('jwt'),
+        //     },
+        //     credentials: 'include',
             
-        }).then(res=> {
-            console.log("받아온거", res);
+        // }).then(res => res.body)
+        // .then(res=> {
+        //     var read = new ReadableStream()
+        //     console.log(res.read);
+            
+        // });
+
+        let response = await fetch('http://localhost:8000/login_api/user',{
+            headers: {
+                'Accept': 'application/json',
+            }
         });
-        // User_Info.then((res)=>{
-        //     setUser([]);
-        //     setUser([...res]);
-        //     console.log(user);
-        // })
-      }, []);
+
+        const reader = response.body.getReader();
+
+        // Step 2: get total length
+        const contentLength = +response.headers.get('Content-Length');
+
+        // Step 3: read the data
+        let receivedLength = 0; // received that many bytes at the moment
+        let chunks = []; // array of received binary chunks (comprises the body)
+        while(true) {
+        const {done, value} = await reader.read();
+
+        if (done) {
+            break;
+        }
+
+        chunks.push(value);
+        receivedLength += value.length;
+
+        console.log(`Received ${receivedLength} of ${contentLength}`)
+        }
+
+        // Step 4: concatenate chunks into single Uint8Array
+        let chunksAll = new Uint8Array(receivedLength); // (4.1)
+        let position = 0;
+        for(let chunk of chunks) {
+        chunksAll.set(chunk, position); // (4.2)
+        position += chunk.length;
+        }
+
+        // Step 5: decode into a string
+        let result = new TextDecoder("utf-8").decode(chunksAll);
+
+        // We're done!
+        let commits = JSON.parse(result);
+        console.log(commits);
+      }, [isLoading]);
+
       const onClick = () => {
           setInterest((prev) => !prev);
           //api로 정보 보내기

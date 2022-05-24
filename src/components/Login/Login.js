@@ -38,7 +38,6 @@ function Login() {
             if(res.jwt){              
                 setCookie('jwt',res.jwt);
                 console.log(getCookie('login-token'));
-                localStorage.setItem('login-token', res.jwt);
                 window.location.replace('/');
                 setAuth(true);
             }else{
