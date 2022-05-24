@@ -42,11 +42,11 @@ function Login() {
                 window.location.replace('/');
                 setAuth(true);
             }else{
+                console.log("no access");
                 setId('');
                 setPw('');
-                setError(true);
+                alert('아이디 또는 비밀번호가 일치하지 않습니다.');
             }
-            console.log(res.jwt);
         });
     }
 
