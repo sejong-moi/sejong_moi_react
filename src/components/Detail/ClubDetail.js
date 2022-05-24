@@ -9,6 +9,7 @@ import rush from "../../images/rush.svg";
 import call from "../../images/temp_call.svg";
 import yes from "../../images/Yes.svg";
 import no from "../../images/No.svg";
+import { getCookie, setCookie } from '../../api/cookie';
 function ClubDetail() {
     const [auth, setAuth] = useState();
     const [interest ,setInterest] = useState();
@@ -34,9 +35,11 @@ function ClubDetail() {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Credentials': '*',
+                'Access-Control-Allow-Credentials': 'true',
+                'Cookie' : getCookie('jwt'),
             },
-            credentials: 'include'
+            credentials: 'include',
+            
         }).then(res=> {
             console.log("받아온거", res);
         });

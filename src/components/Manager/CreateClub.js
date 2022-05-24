@@ -1,3 +1,4 @@
+import { array } from 'prop-types';
 import React, { useState, useEffect} from 'react';
 
 import GetLogin from '../Login/GetLogin';
@@ -9,13 +10,13 @@ function CreateClub() {
       'name': "",
       "introduce": "",
       "club_logo_url": "",
-      "category" : "",
+      "category" : [],
       "president_name": "",
       "president_phone_number": ""     
       
     })	
     const options= ["상시 모집","모집 마감","직접 입력"];
-
+    const categorys = ["공연", "문화", "봉사","종교","운동", "학술"];
     function changeAns(type,text) {
       if(type === "name"){
         let ans = {...answer};
@@ -29,18 +30,17 @@ function CreateClub() {
       }
       else if(type === "club_logo_url"){
         let ans = {...answer};
-        ans.club_logo_url = text;
-    //     let file = e.target.files[0];
-    // reader.onloadend = () => {
-    //   this.setState({ file: file });
-    // };
+        ans.club_logo_url = text[0];
         setAnswer(ans);
       }
       else if(type === "category"){
         let ans = {...answer};
-        ans.category = text;
+        let cate = [text,];
+        ans.category = cate;
+        console.log(cate);
         setAnswer(ans);
       }
+
       else if(type === "president_name"){
         let ans = {...answer};
         ans.president_name = text;
@@ -51,6 +51,7 @@ function CreateClub() {
         ans.president_phone_number = text;
         setAnswer(ans);
       }
+      
       console.log(answer);
     }
     const handleClick = (e) => {
@@ -97,7 +98,13 @@ function CreateClub() {
             </div>
             <div className= {styles.element}>
               <label id="category">동아리 카테고리 </label>
-              <input type="text" id="category" onChange={(e) => changeAns("category",e.target.value)}></input>
+              <div className={styles.ques}>
+                {categorys.map((cate, i)=>(
+                <div className={styles.checkbox_container}>
+                <input className ={styles.ques_ans} id = {cate} key = {i} type ="radio" name="category" onChange={(e) => changeAns("category",i+1)} checked={answer.category[0] === i+1}/>
+                <div>{cate}</div>
+                </div> ))}
+              </div>
             </div>
             <div className={styles.file_upload}>
               <p style={{ "font-size": "20px"}}>배경 이미지</p>
@@ -107,7 +114,7 @@ function CreateClub() {
             <div className={styles.file_upload}>
               <p style={{ "font-size": "20px"}}>로고 이미지</p>
               <label className={styles.img_btn} for="logo_img">파일 업로드</label>
-              <input type="file" id="logo_img"  multiple="multiple" style={{display:"none"}} onChange={(e) => changeAns("club_logo_url",e.target.value)} />
+              <input type="file" id="logo_img"  multiple="multiple" style={{display:"none"}} onChange={(e) => changeAns("club_logo_url",e.target.files)} />
             </div>
             <div className= {styles.element}>
               <label id="club_intro_abb">동아리 요약 소개 (50자 이하) </label>
