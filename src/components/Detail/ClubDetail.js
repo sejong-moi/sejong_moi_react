@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { Link,useParams } from 'react-router-dom';
 import GetLogin from "../Login/GetLogin";
+import {User_Info} from "../../api/api";
 
 import styles from './ClubDetail.module.css';
 import main_img from "../../images/temp.png";
@@ -12,7 +13,7 @@ function ClubDetail() {
     const [auth, setAuth] = useState();
     const [interest ,setInterest] = useState();
     const clubName = useParams().clubname;
-
+    const [user,setUser] = useState([]);
     useEffect(() => { 
         // api에서 clubName 에 대한 동아리 정보 get
         // api에서 회원의 관심 유무 정보 get
@@ -28,6 +29,22 @@ function ClubDetail() {
             setInterest(true);
         }
         console.log(clubName);
+
+        fetch('http://localhost:8000/login_api/user',{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Credentials': '*',
+            },
+            credentials: 'include'
+        }).then(res=> {
+            console.log("받아온거", res);
+        });
+        // User_Info.then((res)=>{
+        //     setUser([]);
+        //     setUser([...res]);
+        //     console.log(user);
+        // })
       }, []);
       const onClick = () => {
           setInterest((prev) => !prev);

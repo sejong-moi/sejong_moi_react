@@ -8,6 +8,11 @@ export const Clubs_Info = (club_category) => API.get(`http://localhost:8000/club
         Authorization: localStorage.getItem('login-token'),
     }
 })
+export const User_Info = () => API.get(`http://localhost:8000/login_api/user`,{
+    headers: {
+        'Content-Type': 'application/json',
+    }
+})
 // 개별 동아리 정보 가져오기
 export const Club_Info = (club_name) => API.get(`http://localhost:8000/club_api/${club_name}/detail`,{
     headers: {
@@ -37,9 +42,3 @@ export const User_Logout = ((user) => API.post('http://localhost:8000/login_api/
     );
 
 
-// export const Login = async() =>{
-//     try {
-//         const response = await axios.post('http://localhost:8000/login_api/login')
-//         cons
-//     }
-// }

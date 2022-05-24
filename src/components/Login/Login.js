@@ -1,7 +1,7 @@
 import React, { Redirect,useEffect, useState} from 'react';
+import { getCookie, setCookie } from '../../api/cookie';
 import loginstyles from './Login.module.css';
-import {User_Login, User_Logout} from '../../api/api';
-import {useCookies} from 'react-cookie';
+
 
 function Login() {
     const [id,setId] = useState('');
@@ -10,7 +10,6 @@ function Login() {
     const [auth, setAuth] = useState();
     const [error, setError] = useState(false);
 
-    const [cookies, setCookie, removeCookie] = useCookies(['user-login']);
     const handleInput = (e) => setId(e.target.value);
     const handlePwInput = (e) => setPw(e.target.value);
 
@@ -36,8 +35,9 @@ function Login() {
             body: JSON.stringify(user)
         }).then(res => res.json())
         .then(res=> {
-            if(res.jwt){                
-                console.log(res.jwt);
+            if(res.jwt){              
+                setCookie('jwt',res.jwt);
+                console.log(getCookie('login-token'));
                 localStorage.setItem('login-token', res.jwt);
                 window.location.replace('/');
                 setAuth(true);

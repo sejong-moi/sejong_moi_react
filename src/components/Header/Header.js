@@ -16,6 +16,14 @@ function Header() {
         console.log("clear localstorage");
         window.location.replace('/');
         
+        fetch('http://localhost:8000/login_api/logout',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then(res=> {
+            
+        });
     }
     useEffect(()=>{
         if (localStorage.getItem('login-token')){

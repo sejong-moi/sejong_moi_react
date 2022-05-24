@@ -30,6 +30,10 @@ function CreateClub() {
       else if(type === "club_logo_url"){
         let ans = {...answer};
         ans.club_logo_url = text;
+    //     let file = e.target.files[0];
+    // reader.onloadend = () => {
+    //   this.setState({ file: file });
+    // };
         setAnswer(ans);
       }
       else if(type === "category"){
@@ -60,38 +64,14 @@ function CreateClub() {
           body: JSON.stringify(answer)
       }).then(res => res.json())
       .then(res=> {
-          if(res.jwt){                
-              window.location.replace('/');
-              setAuth(true);
+          if(res){                
+              console.log("success");
           }else{
               console.log("no access");
-              alert('동아리 등록에 실패');
+              alert('내용을 채워주세요');
           }
       });
   }
-
-    // const handleChangeFile = (event) => {
-    //     console.log(event.target.files)
-    //     setImgFile(event.target.files);
-    //     //fd.append("file", event.target.files)
-    //     for(var i=0;i<event.target.files.length;i++){
-    //     if (event.target.files[i]) {
-    //       let reader = new FileReader();
-    //       reader.readAsDataURL(event.target.files[i]); // 1. 파일을 읽어 버퍼에 저장합니다.
-    //       // 파일 상태 업데이트
-    //       reader.onloadend = () => {
-    //         // 2. 읽기가 완료되면 아래코드가 실행됩니다.
-    //         const base64 = reader.result;
-    //         console.log(base64)
-    //         if (base64) {
-    //         //  images.push(base64.toString())
-    //         var base64Sub = base64.toString()               
-    //         }
-    //       }
-    //     }
-    //   }
-    
-    //   }
     useEffect(() => { 
       if (!localStorage.getItem('login-token')) {
         setAuth(false);
@@ -108,12 +88,12 @@ function CreateClub() {
       <div className={styles.inner}> 
           <form>
             <div className= {styles.element}>
-              <label id="club_name">동아리 명 </label>
-              <input type="text" id="club_name" onChange={(e) => changeAns("name",e.target.value)}></input>
+              <label id="name">동아리 명 </label>
+              <input type="text" id="name" onChange={(e) => changeAns("name",e.target.value)}></input>
             </div>
             <div className= {styles.element}>
-              <label id="pres_name">현재 회장 일단 이름 (사이트 관리자) </label>
-              <input type="text" id="pres_name" onChange={(e) => changeAns("president_name",e.target.value)}></input>
+              <label id="president_name">현재 회장 일단 이름 (사이트 관리자) </label>
+              <input type="text" id="president_name" onChange={(e) => changeAns("president_name",e.target.value)}></input>
             </div>
             <div className= {styles.element}>
               <label id="category">동아리 카테고리 </label>
