@@ -72,7 +72,7 @@ function Question_form() {
         "required":false
     }]);   
     function addMoreQuestionField(){
-        expandCloseAll(); //I AM GOD
+        expandCloseAll(); 
   
         setQuestions(questions=> [...questions, {questionText: "Question", questionType:"radio", options : [{optionText: "Option 1"}], open: true, required:false}]);
     }

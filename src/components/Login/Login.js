@@ -1,7 +1,7 @@
 import React, { Redirect,useEffect, useState} from 'react';
 import loginstyles from './Login.module.css';
-import {User_Login} from '../../api/api';
-
+import {User_Login, User_Logout} from '../../api/api';
+import {useCookies} from 'react-cookie';
 
 function Login() {
     const [id,setId] = useState('');
@@ -10,6 +10,7 @@ function Login() {
     const [auth, setAuth] = useState();
     const [error, setError] = useState(false);
 
+    const [cookies, setCookie, removeCookie] = useCookies(['user-login']);
     const handleInput = (e) => setId(e.target.value);
     const handlePwInput = (e) => setPw(e.target.value);
 
@@ -21,40 +22,33 @@ function Login() {
             setAuth(false);
         }
     },[])
-    const onSubmit = (e)=>{
+    const handleClick = (e) => {
         const user= { 
-            username : id, 
-            password : pw
-        };
-        console.log(user);
-        //임시 fake
-
-        // localStorage.setItem('login-token', "fake");
-        // window.location.replace('/');
-        // setAuth(true);
-
-        //여기까지
-        
-
-        User_Login(user).then(res => {
-            if(res.data.key){
-                console.log(res);
-                localStorage.clear();
-                localStorage.setItem('login-token', res.data.key);
+            'username' : id, 
+            'password' : pw
+        };         
+        e.preventDefault();
+        fetch('http://localhost:8000/login_api/login',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user)
+        }).then(res => res.json())
+        .then(res=> {
+            if(res.jwt){                
+                console.log(res.jwt);
+                localStorage.setItem('login-token', res.jwt);
                 window.location.replace('/');
                 setAuth(true);
             }else{
                 setId('');
                 setPw('');
-                localStorage.clear();
                 setError(true);
             }
-         })
-         .catch(err => {
-             console.clear();
-             alert('아이디 또는 비밀번호가 일치하지 않습니다.');
-         });
-    };
+            console.log(res.jwt);
+        });
+    }
 
     return (
     <div>
@@ -64,7 +58,7 @@ function Login() {
             <div className={loginstyles.login}>
         <div className={loginstyles.container}>
             <h1 className={loginstyles.name}>Login</h1>
-            <form className= {loginstyles.submit} onSubmit={onSubmit}>
+            <form className= {loginstyles.submit}>
                 <input 
                     type ="text" 
                     id="username" 
@@ -79,7 +73,7 @@ function Login() {
                     onChange={handlePwInput}
                 />
                 <div>
-                    <button className={loginstyles.btn} font-size="21px" width="230px" height="40px" >로그인</button>
+                    <button onClick={handleClick} className={loginstyles.btn} font-size="21px" width="230px" height="40px" >로그인</button>
                 </div>
             </form>              
         </div>

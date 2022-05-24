@@ -25,6 +25,21 @@ export const User_Interest = (user) => API.get(`http://localhost:8000/`,{
 })
 
 // * login
-export const User_Login = ((user) => API.post('/login_api/login', user,
-	{headers:{'Content-Type': 'application/json'}}));
+export const User_Login = ((user) => API.post('http://localhost:8000/login_api/login', JSON.stringify(user),
+	{headers:{'Content-Type': 'application/json',
+    'Connection':'keep-alive'}
+        })
+    );
 
+
+export const User_Logout = ((user) => API.post('http://localhost:8000/login_api/logout', JSON.stringify(user),
+	{headers:{'Content-Type': 'application/json'}})
+    );
+
+
+// export const Login = async() =>{
+//     try {
+//         const response = await axios.post('http://localhost:8000/login_api/login')
+//         cons
+//     }
+// }
