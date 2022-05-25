@@ -6,15 +6,13 @@ import loginstyles from './Login.module.css';
 function Login() {
     const [id,setId] = useState('');
     const [pw,setPw] = useState('');
-    // 임시
     const [auth, setAuth] = useState();
-    const [error, setError] = useState(false);
 
     const handleInput = (e) => setId(e.target.value);
     const handlePwInput = (e) => setPw(e.target.value);
 
     useEffect(()=>{
-        if (localStorage.getItem('login-token')){
+        if (getCookie('jwt')){
             setAuth(true);
         }
         else{

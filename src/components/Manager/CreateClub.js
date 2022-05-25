@@ -1,8 +1,8 @@
-import { array } from 'prop-types';
 import React, { useState, useEffect} from 'react';
 
 import GetLogin from '../Login/GetLogin';
 import styles from './CreateClub.module.css';
+import { getCookie} from '../../api/cookie';
 
 function CreateClub() {
     const [auth, setAuth] = useState();
@@ -74,7 +74,7 @@ function CreateClub() {
       });
   }
     useEffect(() => { 
-      if (!localStorage.getItem('login-token')) {
+      if (!getCookie('jwt')) {
         setAuth(false);
       }
       else{
@@ -93,7 +93,11 @@ function CreateClub() {
               <input type="text" id="name" onChange={(e) => changeAns("name",e.target.value)}></input>
             </div>
             <div className= {styles.element}>
-              <label id="president_name">현재 회장 일단 이름 (사이트 관리자) </label>
+              <label id="president_name">회장 이름 (사이트 관리자) </label>
+              <input type="text" id="president_name" onChange={(e) => changeAns("president_name",e.target.value)}></input>
+            </div>
+            <div className= {styles.element}>
+              <label id="president_name">회장 학번 (사이트 관리자) </label>
               <input type="text" id="president_name" onChange={(e) => changeAns("president_name",e.target.value)}></input>
             </div>
             <div className= {styles.element}>

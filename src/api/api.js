@@ -5,7 +5,6 @@ const API = axios.create();
 export const Clubs_Info = (club_category) => API.get(`http://localhost:8000/club_api/list_${club_category}`,{
     headers: {
         'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('login-token'),
     }
 })
 export const User_Info = () => API.get(`http://localhost:8000/login_api/user`,{

@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 import headerstyles from "./Header.module.css";
 import logo from "../../images/LOGO.svg";
 import profile from "../../images/profile.svg";
-import { getCookie, setCookie } from '../../api/cookie';
+import { getCookie ,removeCookie} from '../../api/cookie';
 
 function Header() {
     
     const [auth, setAuth] = useState();
     const onClick = () => {
         setAuth(false);
+        removeCookie("jwt");
         window.location.replace('/');
         
         fetch('http://localhost:8000/login_api/logout',{
@@ -21,6 +22,7 @@ function Header() {
         }).then(res=> {
             
         });
+
     }
     useEffect(()=>{
         if (getCookie('jwt')){
