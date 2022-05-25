@@ -10,8 +10,6 @@ function ClubSummary({info = [], type = 1}) {
     const {category} = useParams();
 
     useEffect(()=>{
-        // setClub_info(info);
-        // console.log("temp data ",info);
         setLoading(true);
         
     },[isLoading,category])
