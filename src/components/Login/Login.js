@@ -12,19 +12,18 @@ function Login() {
     const handlePwInput = (e) => setPw(e.target.value);
 
     useEffect(()=>{
-        if (getCookie('jwt')){
-            setAuth(true);
-        }
-        else{
-            setAuth(false);
-        }
+        if (getCookie('jwt')) setAuth(true);
+        else setAuth(false);
     },[])
+
     const handleClick = (e) => {
         const user= { 
             'username' : id, 
             'password' : pw
         };         
         e.preventDefault();
+        
+        // login api
         fetch('http://localhost:8000/login_api/login',{
             method: 'POST',
             headers: {
@@ -49,9 +48,8 @@ function Login() {
 
     return (
     <div>
-
         {
-            auth?  <Redirect to={'/'} />:
+        auth?  <Redirect to={'/'} />:
             <div className={loginstyles.login}>
         <div className={loginstyles.container}>
             <h1 className={loginstyles.name}>Login</h1>

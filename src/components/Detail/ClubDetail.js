@@ -8,7 +8,7 @@ import call from "../../images/temp_call.svg";
 import yes from "../../images/Yes.svg";
 import no from "../../images/No.svg";
 import { getCookie,  } from '../../api/cookie';
-import { Club_Info,Is_Interested } from '../../api/api';
+import { Club_Info,Add_Interested,Del_Interested,Is_Interested } from '../../api/api';
 
 
 function ClubDetail() {
@@ -23,12 +23,26 @@ function ClubDetail() {
     useEffect(()=> {  
         if (!getCookie('jwt')) setAuth(false); 
         else setAuth(true);
-        setisLoading(true); 
+
+        setisLoading(true);  
+        setData({'jwt' : getCookie('jwt'),
+            'club_name' : clubName});
+        console.log("보낼 정보 :" , data);
+
+        Is_Interested(data).then((res)=>{
+            console.log(res);
+            if (res.data.interested === "True"){
+                setInterest(true);
+            }
+            else{
+                setInterest(false);
+            }
+        });
 
         // user 정보 가져오기
         async function getUser () { 
             let response = await fetch('http://localhost:8000/login_api/user',{
-                method: 'GET',
+                method: 'GET', 
                 credentials: 'include',
                 headers: {
                     'Accept': 'application/json',
@@ -42,7 +56,7 @@ function ClubDetail() {
             // Step 3: read the data
             let receivedLength = 0; // received that many bytes at the moment
             let chunks = []; // array of received binary chunks (comprises the body)
-            while(true) {
+            while(true) { 
             const {done, value} = await reader.read();
     
             if (done) { break;}  
@@ -63,40 +77,39 @@ function ClubDetail() {
             // We're done!
             let commits = JSON.parse(result);
             setUser(commits);
-            console.log("받아온거",user);
-            
+            // for(let i = 0 ; i < (user.interesting))
         }      
         getUser();        
-        
+        console.log("user 정보 : ", user)
         // 동아리 세부 정보 가져오기
         Club_Info(clubName).then((res)=>{
             console.log(clubName);
             setClub(res.data);
-            console.log("club details", club);
+            console.log("club 정보 : ", club);
         }).catch(err=>{
             console.log(err);
         });
 
-        setData({
-            "username" : user.username,
-            "club_name" : clubName
-        });
-
-        Is_Interested(data).then((res)=>{
-            console.log(res.data);
-            if (res.data.interested === "True"){
-                setInterest(true);
-            }
-            else {
-                setInterest(false);
-            }
-        })
-
+        
+ 
     }, [isLoading]); 
 
-      const onClick = () => {  
-          setInterest((prev) => !prev);
-          //api로 정보 보내기
+      const onClick = () => {   
+        if (interest){
+            // delete interest
+            Del_Interested(data).then((res)=> {
+                console.log("delete interest",res);
+            })
+            setInterest(false);
+        }
+        else {
+            //add interest
+              Add_Interested(data).then((res)=>{
+                  console.log("add interest", res)                    
+              })
+              setInterest(true);
+        }          
+
       }
 
     return (

@@ -6,17 +6,9 @@ import { getCookie} from '../../api/cookie';
 
 function CreateClub() {
     const [auth, setAuth] = useState();
-    const [answer,setAnswer] = useState({
-      'name': "",
-      "introduce": "",
-      "club_logo_url": "",
-      "category" : [],
-      "president_name": "",
-      "president_phone_number": ""     
-      
-    })	
     const options= ["상시 모집","모집 마감","직접 입력"];
     const categorys = ["공연", "문화", "봉사","종교","운동", "학술"];
+    // let formData 
     function changeAns(type,text) {
       if(type === "name"){
         let ans = {...answer};
