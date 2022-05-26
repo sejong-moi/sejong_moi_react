@@ -77,7 +77,9 @@ function ClubDetail() {
             // We're done!
             let commits = JSON.parse(result);
             setUser(commits);
-            // for(let i = 0 ; i < (user.interesting))
+            for(let i = 0 ; i < user.interesting.length ; i++){
+                console.log(user.interesting[i]);
+            }
         }      
         getUser();        
         console.log("user 정보 : ", user)
