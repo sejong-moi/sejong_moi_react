@@ -29,16 +29,6 @@ function ClubDetail() {
             'club_name' : clubName});
         console.log("보낼 정보 :" , data);
 
-        Is_Interested(data).then((res)=>{
-            console.log(res);
-            if (res.data.interested === "True"){
-                setInterest(true);
-            }
-            else{
-                setInterest(false);
-            }
-        });
-
         // user 정보 가져오기
         async function getUser () { 
             let response = await fetch('http://localhost:8000/login_api/user',{
@@ -75,10 +65,12 @@ function ClubDetail() {
             let result = new TextDecoder("utf-8").decode(chunksAll);
     
             // We're done!
-            let commits = JSON.parse(result);
-            setUser(commits);
-            for(let i = 0 ; i < user.interesting.length ; i++){
-                console.log(user.interesting[i]);
+            let data = JSON.parse(result);
+            setUser(data);
+            for(i in data.interesting){
+                if (i === clubName){
+                    setInterest(true);
+                }
             }
         }      
         getUser();        
