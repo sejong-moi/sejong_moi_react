@@ -8,7 +8,7 @@ import call from "../../images/temp_call.svg";
 import yes from "../../images/Yes.svg";
 import no from "../../images/No.svg";
 import { getCookie,  } from '../../api/cookie';
-import { Club_Info,Add_Interested,Del_Interested,Is_Interested } from '../../api/api';
+import { Club_Info,Add_Interested,Del_Interested } from '../../api/api';
 
 
 function ClubDetail() {
@@ -16,18 +16,14 @@ function ClubDetail() {
     const [interest ,setInterest] = useState(false);
     const [user,setUser] = useState([]);
     const [club,setClub] = useState([]);
-    const [data,setData] = useState([]);
     const clubName = useParams().clubname;
     const [isLoading,setisLoading] = useState(false);
 
     useEffect(()=> {  
         if (!getCookie('jwt')) setAuth(false); 
         else setAuth(true);
-
-        setisLoading(true);  
-        setData({'jwt' : getCookie('jwt'),
-            'club_name' : clubName});
-        console.log("보낼 정보 :" , data);
+  
+        setisLoading(true);         
 
         // user 정보 가져오기
         async function getUser () { 
@@ -40,9 +36,7 @@ function ClubDetail() {
             });
     
             const reader = response.body.getReader();           
-            // Step 2: get total length
-            const contentLength = +response.headers.get('Content-Length');
-    
+            
             // Step 3: read the data
             let receivedLength = 0; // received that many bytes at the moment
             let chunks = []; // array of received binary chunks (comprises the body)
@@ -67,14 +61,16 @@ function ClubDetail() {
             // We're done!
             let data = JSON.parse(result);
             setUser(data);
-            for(i in data.interesting){
-                if (i === clubName){
+            for(let i in data.interesting){
+                console.log(i);
+                if (data.interesting[i] === clubName){
                     setInterest(true);
                 }
             }
         }      
         getUser();        
         console.log("user 정보 : ", user)
+
         // 동아리 세부 정보 가져오기
         Club_Info(clubName).then((res)=>{
             console.log(clubName);
@@ -82,25 +78,21 @@ function ClubDetail() {
             console.log("club 정보 : ", club);
         }).catch(err=>{
             console.log(err);
-        });
-
-        
+        });      
  
     }, [isLoading]); 
 
-      const onClick = () => {   
+      const onClick = () => {           
+        let data = ({'username' : user.username,
+            'club_name' : clubName});
         if (interest){
-            // delete interest
-            Del_Interested(data).then((res)=> {
-                console.log("delete interest",res);
-            })
+            // delete interest            
+            Del_Interested(data);
             setInterest(false);
         }
         else {
             //add interest
-              Add_Interested(data).then((res)=>{
-                  console.log("add interest", res)                    
-              })
+              Add_Interested(data);
               setInterest(true);
         }          
 
@@ -124,6 +116,8 @@ function ClubDetail() {
                         }
                     </div>
                     <p className={styles.interest_content}>관심 담기</p>
+
+                    
                     
                 </div>  
                 {/* <div>동아리 소개글</div> */}

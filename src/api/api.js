@@ -15,8 +15,6 @@ export const Club_Info = (club_name) => API.get(`http://localhost:8000/club_api/
     }
 })
 
-
-
 export const Is_Interested = (data) => API.get(`http://localhost:8000/club_api/is_interested`,JSON.stringify(data),{
     headers:{
         'Content-Type' : 'application/json'
@@ -34,12 +32,17 @@ export const Del_Interested = (data) => API.post(`http://localhost:8000/club_api
     }
 })
 
-
-
 // * login
 export const User_Login = ((user) => API.post('http://localhost:8000/login_api/login', JSON.stringify(user),
 	{headers:{'Content-Type': 'application/json' }
     })
     );
 
+// ranking
+
+export const List_Ranking = () => API.get(`http://localhost:8000/club_api/list_ranking`,{
+    headers: {
+        'Content-Type': 'application/json',
+    }
+})
 

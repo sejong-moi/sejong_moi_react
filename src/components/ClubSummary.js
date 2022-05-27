@@ -1,7 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { Link,useParams } from 'react-router-dom';
 import styles from './ClubSummary.module.css';
-import temp from "../images/rush.svg";
 
 // club 개별
 function ClubSummary({info = [], type = 1}) {
@@ -11,7 +10,7 @@ function ClubSummary({info = [], type = 1}) {
 
     useEffect(()=>{
         setLoading(true);
-        
+        console.log("logo url : ", info.club_logo_url);
     },[isLoading,category])
 
     if (type === 1){
@@ -30,14 +29,14 @@ function ClubSummary({info = [], type = 1}) {
             
         );
     }
-    return(
+    return(  
         <div className={styles.interest_container}>            
                     <div className={styles.interest_clubs}>
                         <div className ={styles.interest_img_container}>
-                            <img src = {temp} alt = "img" className={styles.club_img}></img>
+                            <img src = {info.club_logo_url} alt = "img" className={styles.club_img}></img>
                         </div>
                         <div className={styles.info_container}>
-                            <p className={styles.interest_club__name}><Link to={`/center/${info.category}/${info.name}/detail`} style={{textDecoration : 'none'}}>{info.name}</Link></p>
+                            <p className={styles.interest_club__name}><Link to={`/center/${info.category_eng}/${info.name}/detail`} style={{textDecoration : 'none'}}>{info.name}</Link></p>
                         </div>    
                     </div> 
             </div>

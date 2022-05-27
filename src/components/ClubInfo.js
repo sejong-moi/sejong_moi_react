@@ -13,7 +13,6 @@ function ClubInfo() {
         //API 받아옴
         console.log("call", clubcategory);
         Clubs_Info(clubcategory).then((res)=>{     
-            setClubs([]);
             setClubs([...res.data]);
             setLoading(true);
             console.log("받은것", clubs);

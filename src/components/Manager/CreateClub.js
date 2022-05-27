@@ -6,45 +6,99 @@ import { getCookie} from '../../api/cookie';
 
 function CreateClub() {
     const [auth, setAuth] = useState();
+    const [answer,setAnswer] = useState({
+      'name': "",
+      "introduce": "",
+      "introduce_abb" : "",
+      "club_logo_url": "",
+      "category" : [],
+      "president_name": "",
+      "president_phone_number": "" ,
+      "president_id" : ""    
+    })   
+    const formData = new FormData();
+
     const options= ["상시 모집","모집 마감","직접 입력"];
     const categorys = ["공연", "문화", "봉사","종교","운동", "학술"];
-    // let formData 
-    function changeAns(type,text) {
-      if(type === "name"){
-        let ans = {...answer};
-        ans.name = text;
-        setAnswer(ans);        
-      }
-      else if(type === "introduce"){
-        let ans = {...answer};
-        ans.introduce = text;
-        setAnswer(ans);
-      }
-      else if(type === "club_logo_url"){
-        let ans = {...answer};
-        ans.club_logo_url = text[0];
-        setAnswer(ans);
-      }
-      else if(type === "category"){
-        let ans = {...answer};
-        let cate = [text,];
-        ans.category = cate;
-        console.log(cate);
-        setAnswer(ans);
-      }
+    function file_upload(e){
 
-      else if(type === "president_name"){
-        let ans = {...answer};
-        ans.president_name = text;
-        setAnswer(ans);
+    }
+    function changeAns(e) {
+      formData.append(String(e.target.id),String(e.target.value));
+      if(e.target.id === "club_logo_url"){
+        console.log(e.target.files[0]);
+        console.log("reader : ", FileReader.readAsDataURL(e.target.files[0]));
       }
-      else if(type === "president_phone_number"){
-        let ans = {...answer};
-        ans.president_phone_number = text;
-        setAnswer(ans);
-      }
+      // console.log("change!");
+      // for (var key of formData.keys()) {
+      //     console.log("key : ",key);
+      // }
+      // for (var value of formData.values()) {
+      //   console.log("value : ",value);
+      // }
+        
+      // if(type === "name"){
+      //   let ans = {...answer};
+      //   ans.name = text;
+      //   setAnswer(ans);        
+      // }
+      // else if(type === "introduce"){
+      //   console.log("changed!!!");
+      //   let ans = {...answer};
+      //   ans.introduce = text;
+
+      //   formData.append(String(text.target.id),String(text.target.value));
+
+      //   console.log("keys!!");
+
+      //   for (var key of formData.keys()) {
+      //     console.log(key);
+        
+      //   }
+      //   console.log("values!!");
+        
+      //   for (var value of formData.values()) {
+        
+      //     console.log(value);
+        
+      //   }
+
+      //   setAnswer(ans);
+      // }
+      // else if(type === "introduce_abb"){
+      //   let ans = {...answer};
+      //   ans.introduce_abb = text;
+      //   setAnswer(ans);
+      // }
+      // else if(type === "club_logo_url"){
+      //   let ans = {...answer};
+      //   ans.club_logo_url = text[0];
+      //   setAnswer(ans);
+      // }
+      // else if(type === "category"){
+      //   let ans = {...answer};
+      //   let cate = [text,];
+      //   ans.category = cate;
+      //   // console.log(cate);
+      //   setAnswer(ans);
+      // }
+      // else if(type === "president_name"){
+      //   let ans = {...answer};
+      //   ans.president_name = text;
+      //   setAnswer(ans);
+      // }
+      // else if(type === "president_id"){
+      //   let ans = {...answer};
+      //   ans.president_id = text;
+      //   setAnswer(ans);
+      // }
+      // else if(type === "president_phone_number"){
+      //   let ans = {...answer};
+      //   ans.president_phone_number = text;
+      //   setAnswer(ans);
+      // }
       
-      console.log(answer);
+      // console.log(answer);
     }
     const handleClick = (e) => {
               
@@ -64,14 +118,17 @@ function CreateClub() {
               alert('내용을 채워주세요');
           }
       });
+      console.log("change!");
+      for (var key of formData.keys()) {
+          console.log("key : ",key);
+      }
+      for (var value of formData.values()) {
+        console.log("value : ",value);
+      }
   }
     useEffect(() => { 
-      if (!getCookie('jwt')) {
-        setAuth(false);
-      }
-      else{
-          setAuth(true);
-      }
+      if (!getCookie('jwt')) setAuth(false);
+      else setAuth(true);
     }, []);
 
     return (
@@ -82,15 +139,15 @@ function CreateClub() {
           <form>
             <div className= {styles.element}>
               <label id="name">동아리 명 </label>
-              <input type="text" id="name" onChange={(e) => changeAns("name",e.target.value)}></input>
+              <input type="text" id="name" onChange={(e) => changeAns(e)}></input>
             </div>
             <div className= {styles.element}>
               <label id="president_name">회장 이름 (사이트 관리자) </label>
-              <input type="text" id="president_name" onChange={(e) => changeAns("president_name",e.target.value)}></input>
+              <input type="text" id="president_name" onChange={(e) => changeAns(e)}></input>
             </div>
             <div className= {styles.element}>
-              <label id="president_name">회장 학번 (사이트 관리자) </label>
-              <input type="text" id="president_name" onChange={(e) => changeAns("president_name",e.target.value)}></input>
+              <label id="president_id">회장 학번 (사이트 관리자) </label>
+              <input type="text" id="president_id" onChange={(e) => changeAns(e)}></input>
             </div>
             <div className= {styles.element}>
               <label id="category">동아리 카테고리 </label>
@@ -109,20 +166,20 @@ function CreateClub() {
             </div>
             <div className={styles.file_upload}>
               <p style={{ "font-size": "20px"}}>로고 이미지</p>
-              <label className={styles.img_btn} for="logo_img">파일 업로드</label>
-              <input type="file" id="logo_img"  multiple="multiple" style={{display:"none"}} onChange={(e) => changeAns("club_logo_url",e.target.files)} />
+              <label className={styles.img_btn} for="club_logo_url">파일 업로드</label>
+              <input type="file" id="club_logo_url"  multiple="multiple" style={{display:"none"}} onChange={(e) => changeAns(e)} />
             </div>
             <div className= {styles.element}>
-              <label id="club_intro_abb">동아리 요약 소개 (50자 이하) </label>
-              <textarea  type="text" id="club_intro_abb" maxLength={50} cols="100" rows="5" onChange={(e) => changeAns("introduce",e.target.value)}></textarea >
+              <label id="introduce_abb">동아리 요약 소개 (50자 이하) </label>
+              <textarea  type="text" id="introduce_abb" maxLength={50} cols="100" rows="5" onChange={(e) => changeAns(e)}></textarea >
             </div>
             <div className= {styles.element}>
-              <label id="club_intro">동아리 소개글</label>
-              <textarea  type="text" id="club_intro" cols="100" rows="5"></textarea >
+              <label id="introduce">동아리 소개글</label>
+              <textarea  type="text" id="introduce" cols="100" rows="5" onChange={(e) => changeAns(e)}></textarea >
             </div>
             <div className= {styles.element}>
-              <label id="tel">연락처  (ex) 010-1234-5678</label>
-              <input type="text" id="tel" onChange={(e) => changeAns("president_phone_number",e.target.value)}></input>
+              <label id="president_phone_number">연락처  (ex) 010-1234-5678</label>
+              <input type="text" id="president_phone_number" onChange={(e) => changeAns(e)}></input>
             </div>
             <div className= {styles.element}>
               <label id="location">동아리방 위치 </label>

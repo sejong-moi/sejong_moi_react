@@ -2,33 +2,48 @@
 import React, { useEffect,useState} from 'react';
 import styles from "./Home.module.css"
 import ClubSummary from "./ClubSummary";
+import {List_Ranking} from "../api/api";
 
 // 동아리 이미지 동아리 명 받아와야함
 function Home() {
-    const [info, setInfo] = useState([]);
+    const [clubs, setClubs] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const onClick = () => {
         window.location.replace('/manage');
-
     }
     useEffect(() => { 
-        setInfo([{"name" : "RUSH",
-        "img_url" : "temp",
-        "category" : "Athletic"}])
-        setLoading(true);
+        List_Ranking().then((res)=> {
+            setClubs([...res.data]);
+            setLoading(true);
+            console.log("받은 것 :" , clubs);
+        }) 
+        // setInfo([{"name" : "RUSH",
+        // "img_url" : "temp",
+        // "category" : "Athletic"}])
+        // setLoading(true);
       }, [isLoading]);
-
+  
     return (
         <div className={styles.container}>
             <div className={styles.inner}>  
                 <h1>Ranking</h1>     
                 <div className={styles.abb}>
-                    <ClubSummary type = "2" info = {info[0]}/>
-                    <ClubSummary type = "2" info = {info[0]}/>
-                    <ClubSummary type = "2" info = {info[0]}/>
-                    <ClubSummary type = "2" info = {info[0]}/>
-                    <ClubSummary type = "2" info = {info[0]}/>       
-                </div>          
+                    {
+                        clubs && clubs.map((club,idx)=> (
+                            <ClubSummary type = "2" info = {club}/>
+                        ))
+                    }                        
+                </div>            
+          </div>
+          <div className={styles.inner}>  
+                <h1>Recruiting</h1>     
+                <div className={styles.abb}>
+                    {
+                        clubs && clubs.map((club,idx)=> (
+                            <ClubSummary type = "2" info = {club}/>
+                        ))
+                    }                        
+                </div>            
           </div>
           <div className={styles.inner}>  
                 <h1>동아리 등록 신청</h1>     
