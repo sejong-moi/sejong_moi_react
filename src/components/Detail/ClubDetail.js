@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { Link,useParams } from 'react-router-dom';
 import GetLogin from "../Login/GetLogin";
+import ClubSummary from "../ClubSummary";
 
 import styles from './ClubDetail.module.css';
 import main_img from "../../images/temp.png";
@@ -131,10 +132,24 @@ function ClubDetail() {
                     <div className={styles.content}>010-1234-5678</div>
                 </div> 
                 <Link to= {`/center/${clubName}/apply`} style ={{textDecoration:'None'}}>
-                    <button className={styles.btn_apply} >신청하기</button>
-                </Link>    
+                    <button className={styles.btn} >신청하기</button>
+                </Link>  
+                <div className={styles.qna}>  
+                    <h1>Q n A</h1>  
+                    <form>
+                        <input className ={styles.ques}
+                            type ="text" 
+                            placeholder="여기 작성해주세요"
+                            // onChange={handleInput}
+                        />
+                        <button  className={styles.btn} font-size="21px" width="230px" height="40px" >질문하기</button>
+
+                    </form>
+                </div>  
             </div>
-        </div>: 
+            
+        </div>
+        : 
        <GetLogin/>}
                 
     </div>
