@@ -15,12 +15,7 @@ function Home() {
         List_Ranking().then((res)=> {
             setClubs([...res.data]);
             setLoading(true);
-            console.log("받은 것 :" , clubs);
         }) 
-        // setInfo([{"name" : "RUSH",
-        // "img_url" : "temp",
-        // "category" : "Athletic"}])
-        // setLoading(true);
       }, [isLoading]);
   
     return (

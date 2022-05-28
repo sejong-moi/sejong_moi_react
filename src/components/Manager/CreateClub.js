@@ -7,17 +7,6 @@ import { getCookie} from '../../api/cookie';
 function CreateClub() {
     const [auth, setAuth] = useState();
     const [write, setWrite] = useState(false);
-
-    // const [answer,setAnswer] = useState({
-    //   'name': "",
-    //   "introduce": "",
-    //   "introduce_abb" : "",
-    //   "club_logo_url": "",
-    //   "category" : [],
-    //   "president_name": "",
-    //   "president_phone_number": "" ,
-    //   "president_id" : ""    
-    // })   
     const formData = new FormData();
 
     const options= ["상시 모집","모집 마감","직접 입력"];
@@ -31,10 +20,10 @@ function CreateClub() {
       formData.set("recruit", e.target.id);
       if (e.target.id === "직접 입력") setWrite(true);
       else setWrite(false);
-    }
+    } 
     function addCategory(e,idx){
       var li = [idx,0]; 
-      console.log(e.target.id)     
+      console.log(e.target.id)      
       formData.set("category_kor",JSON.stringify(li));      
     }
     function changeAns(e) {

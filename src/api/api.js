@@ -38,11 +38,23 @@ export const User_Login = ((user) => API.post('http://localhost:8000/login_api/l
     })
     );
 
-// ranking
 
+// ranking
 export const List_Ranking = () => API.get(`http://localhost:8000/club_api/list_ranking`,{
     headers: {
         'Content-Type': 'application/json',
     }
 })
 
+// add question
+export const Add_Question = ((data) => API.post('http://localhost:8000/club_api/ask_question', JSON.stringify(data),
+	{headers:{'Content-Type': 'application/json' }
+    })
+);
+//isPresident 
+export const isPresident = (data) => API.post(`http://localhost:8000/club_api/is_president`,JSON.stringify(data),
+{
+    headers:{'Content-Type': 'application/json'}
+})
+// get questions
+export const Get_Question = () => API.get(``)

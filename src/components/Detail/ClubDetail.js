@@ -1,7 +1,8 @@
 import React, { useState, useEffect} from 'react';
 import { Link,useParams } from 'react-router-dom';
 import GetLogin from "../Login/GetLogin";
-import ClubSummary from "../ClubSummary";
+import Questions from './Questions';
+
 
 import styles from './ClubDetail.module.css';
 import main_img from "../../images/temp.png";
@@ -9,20 +10,32 @@ import call from "../../images/temp_call.svg";
 import yes from "../../images/Yes.svg";
 import no from "../../images/No.svg";
 import { getCookie,  } from '../../api/cookie';
-import { Club_Info,Add_Interested,Del_Interested } from '../../api/api';
+import { isPresident,Club_Info,Add_Interested,Del_Interested,Add_Question } from '../../api/api';
 
 
 function ClubDetail() {
     const [auth, setAuth] = useState();
+    const [pres,setPres] = useState(false);
     const [interest ,setInterest] = useState(false);
     const [user,setUser] = useState([]);
-    const [club,setClub] = useState([]);
+    const [club,setClub] = useState({'questions_list' : []});
+    const [ques, setQues] = useState([]);
+    
     const clubName = useParams().clubname;
     const [isLoading,setisLoading] = useState(false);
-
-    useEffect(()=> {  
+    const handleInput = (e)=> setQues(e.target.value); 
+    const handleClick = (e) => {
+        const add = {
+            'questioner' : user.id,
+            'club_name' : clubName,
+            'question_text' : ques
+        }
+        console.log(add);
+        Add_Question(add).then((res)=> console.log(res));
+    } 
+    useEffect(()=> {   
         if (!getCookie('jwt')) setAuth(false); 
-        else setAuth(true);
+        else setAuth(true); 
   
         setisLoading(true);         
 
@@ -35,7 +48,7 @@ function ClubDetail() {
                     'Accept': 'application/json',
                 }
             });
-    
+
             const reader = response.body.getReader();           
             
             // Step 3: read the data
@@ -68,22 +81,33 @@ function ClubDetail() {
                     setInterest(true);
                 }
             }
+            
+            let is_pres = {
+                "club_name" : clubName,
+                "user_id" : data.id
+            }
+            isPresident(is_pres).then((res)=>{
+                console.log(res.data);
+                if (res.data === "True") setPres(true);
+                else setPres(false);
+            })
         }      
         getUser();        
         console.log("user 정보 : ", user)
 
         // 동아리 세부 정보 가져오기
         Club_Info(clubName).then((res)=>{
-            console.log(clubName);
+            console.log(clubName); 
             setClub(res.data);
-            console.log("club 정보 : ", club);
         }).catch(err=>{
             console.log(err);
-        });      
- 
-    }, [isLoading]); 
+        });       
+        
+         
+   
+    }, [isLoading]);  
 
-      const onClick = () => {           
+    const onClick = () => {            
         let data = ({'username' : user.username,
             'club_name' : clubName});
         if (interest){
@@ -93,10 +117,9 @@ function ClubDetail() {
         }
         else {
             //add interest
-              Add_Interested(data);
-              setInterest(true);
+            Add_Interested(data);
+            setInterest(true); 
         }          
-
       }
 
     return (
@@ -116,12 +139,9 @@ function ClubDetail() {
                         <img src= {no} alt="not interestig" onClick={onClick}></img>
                         }
                     </div>
-                    <p className={styles.interest_content}>관심 담기</p>
-
-                    
+                    <p className={styles.interest_content}>관심 담기</p>                 
                     
                 </div>  
-                {/* <div>동아리 소개글</div> */}
                 <div className= {styles.introduction}>
                     {club.introduce}
                 </div>
@@ -136,19 +156,25 @@ function ClubDetail() {
                 </Link>  
                 <div className={styles.qna}>  
                     <h1>Q n A</h1>  
+                    {club && club.questions_list.map((ques,id) => (
+                        <Questions questions = {ques} key = {id} auth={pres}/>    
+                    ))}
+                </div>
+                <div className={styles.qna}>  
+                    <h1>Question</h1>  
                     <form>
                         <input className ={styles.ques}
                             type ="text" 
-                            placeholder="여기 작성해주세요"
-                            // onChange={handleInput}
+                            placeholder="여기 질문해주세요"
+                            onChange={handleInput}
                         />
-                        <button  className={styles.btn} font-size="21px" width="230px" height="40px" >질문하기</button>
-
+                        <button  className={styles.btn} font-size="21px" width="230px" height="40px" onClick={handleClick} >질문하기</button>
                     </form>
                 </div>  
+                   
             </div>
             
-        </div>
+        </div> 
         : 
        <GetLogin/>}
                 

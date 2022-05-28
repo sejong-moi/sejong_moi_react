@@ -10,7 +10,6 @@ function ClubSummary({info = [], type = 1}) {
 
     useEffect(()=>{
         setLoading(true);
-        console.log("logo url : ", info.club_logo_url);
     },[isLoading,category])
 
     if (type === 1){
@@ -36,7 +35,7 @@ function ClubSummary({info = [], type = 1}) {
                             <img src = {info.club_logo_url} alt = "img" className={styles.club_img}></img>
                         </div>
                         <div className={styles.info_container}>
-                            <p className={styles.interest_club__name}><Link to={`/center/${info.category_eng}/${info.name}/detail`} style={{textDecoration : 'none'}}>{info.name}</Link></p>
+                            <p ><Link to={`/center/${info.category_eng}/${info.name}/detail`} style={{textDecoration : 'none'}}>{info.name}</Link></p>
                         </div>    
                     </div> 
             </div>
