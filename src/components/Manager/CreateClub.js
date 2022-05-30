@@ -98,11 +98,11 @@ function CreateClub() {
             </div>
             <div className= {styles.element}>
               <label id="introduce_abb">동아리 요약 소개 (50자 이하) </label>
-              <textarea  type="text" id="introduce_abb" maxLength={50} cols="100" rows="5" onChange={(e) => changeAns(e)}></textarea >
+              <textarea  type="text" id="introduce_abb" maxLength={50}  className={styles.text}  onChange={(e) => changeAns(e)}></textarea >
             </div>
             <div className= {styles.element}>
               <label id="introduce">동아리 소개글</label>
-              <textarea  type="text" id="introduce" cols="100" rows="5" onChange={(e) => changeAns(e)}></textarea >
+              <textarea  type="text" id="introduce" className={styles.text} onChange={(e) => changeAns(e)}></textarea >
             </div>
             <div className= {styles.element}>
               <label id="president_phone_number">연락처  (ex) 010-1234-5678</label>

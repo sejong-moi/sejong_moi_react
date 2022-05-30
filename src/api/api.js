@@ -57,4 +57,7 @@ export const isPresident = (data) => API.post(`http://localhost:8000/club_api/is
     headers:{'Content-Type': 'application/json'}
 })
 // get questions
-export const Get_Question = () => API.get(``)
+export const Answer_Question = (data) => API.post(`http://localhost:8000/club_api/answer_question`,JSON.stringify(data),
+{
+    headers:{'Content-Type': 'application/json'}
+})

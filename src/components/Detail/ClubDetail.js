@@ -24,6 +24,13 @@ function ClubDetail() {
     const clubName = useParams().clubname;
     const [isLoading,setisLoading] = useState(false);
     const handleInput = (e)=> setQues(e.target.value); 
+    const onKeyDown = (keyEvent) => {
+        if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
+          keyEvent.preventDefault();
+            alert("질문하기 버튼을 이용해주세요");
+
+        }
+      }
     const handleClick = (e) => {
         const add = {
             'questioner' : user.id,
@@ -32,6 +39,7 @@ function ClubDetail() {
         }
         console.log(add);
         Add_Question(add).then((res)=> console.log(res));
+        alert("질문을 등록 하였습니다")
     } 
     useEffect(()=> {   
         if (!getCookie('jwt')) setAuth(false); 
@@ -157,18 +165,18 @@ function ClubDetail() {
                 <div className={styles.qna}>  
                     <h1>Q n A</h1>  
                     {club && club.questions_list.map((ques,id) => (
-                        <Questions questions = {ques} key = {id} auth={pres}/>    
+                        <Questions questions = {ques} key = {id} auth={pres} user_id={user.id}/>    
                     ))}
                 </div>
                 <div className={styles.qna}>  
                     <h1>Question</h1>  
-                    <form>
+                    <form  onKeyDown={onKeyDown}>
                         <input className ={styles.ques}
                             type ="text" 
                             placeholder="여기 질문해주세요"
                             onChange={handleInput}
                         />
-                        <button  className={styles.btn} font-size="21px" width="230px" height="40px" onClick={handleClick} >질문하기</button>
+                        <button type="submit" className={styles.btn} font-size="21px" width="230px" height="40px" onClick={handleClick} >질문하기</button>
                     </form>
                 </div>  
                    

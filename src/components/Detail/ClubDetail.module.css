@@ -125,8 +125,7 @@
     float:right;
 }
 .qna{
-    max-width:980px;
-    width:90%;
+    width:100%;
     margin-top:30px;
     border: 1px solid #F66B6B;
     border-radius: 5px;
