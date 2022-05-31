@@ -65,7 +65,7 @@ export const Send_Image = (data)=> API.post(`http://localhost:8000/club_api/uplo
 {
     headers:{'Content-Type': 'application/json'}
 })
-export const Create_Club = (data)=> API.post(`http://localhost:8000/club_api/register_club`,(data),
+export const Create_Club = (data)=> API.post(`http://localhost:8000/club_api/register`,(data),
 {
     headers:{'Content-Type': 'application/json'}
 })

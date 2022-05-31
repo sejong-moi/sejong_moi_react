@@ -29,22 +29,13 @@
 */
 
 import React, { useEffect, useState,useCallback } from "react";
-import axios from "axios";
 import styles from "./Survey.module.css"
 
 const Survey = ({questionType,questionText,options}) => {
    const [type,setType] = useState();
    const [checkedList, setCheckedLists] = useState(options);
    useEffect(()=>{
-      if (questionType === "text"){
-         setType(1)
-      }
-      else if (questionType === "checkbox"){
-         setType(2)
-      }
-      else if (questionType === "radio"){
-         setType(3)
-      }
+      
    },[])
    const onSubmit = async (e) => {
       //   console.log("send apply");
@@ -86,7 +77,7 @@ const Survey = ({questionType,questionText,options}) => {
       [checkedList]
    );
 
-   if (type === "text"){
+   if (questionType === "text"){
       //text
       return(
          <div className={styles.container}>
@@ -99,7 +90,7 @@ const Survey = ({questionType,questionText,options}) => {
          </div>
       )
    }
-   else if (type === "checkbox"){
+   else if (questionType === "checkbox"){
       //check box
       return(
          <div className={styles.container}>
@@ -119,7 +110,7 @@ const Survey = ({questionType,questionText,options}) => {
          </div>
       );
    }
-   else if (type === "radio"){
+   else if (questionType === "radio"){
       //radio
       return(
          <div className={styles.container}>
@@ -129,6 +120,7 @@ const Survey = ({questionType,questionText,options}) => {
                <input className ={styles.ques_ans}
                   key = {list.id}
                   type ="radio" 
+                  name="radio"
                   placeholder="여기 작성해주세요"
                   onChange={onChecked}
                />
@@ -139,18 +131,6 @@ const Survey = ({questionType,questionText,options}) => {
          </div>
       );
    }
-   return (
-      
-    <form onSubmit={(e) => onSubmit(e)}>
-        <input
-            type="file"
-            name="profile_img"
-            multiple="multiple"
-        />
-        <button type="submit">제출</button>
-    </form>
-  );
-  
 };
 
 export default Survey;

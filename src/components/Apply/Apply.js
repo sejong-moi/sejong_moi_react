@@ -10,6 +10,13 @@ const Apply = () => {
       //api에서 받아옴
     },[])
   
+    // {
+    //   {"questionText": '질문 1', "questionType": 'radio', "options": "open": false, "required": false}
+    //   {"questionText": '체크해주세욤', "questionType": 'radio', "options":  "open": false, "required": false}
+    //   {"questionText": '면접 가능 날짜 선택해주세요', "questionType": 'Checkbox', "options": , "open": true, "required": false}
+     
+    // }
+ 
     return (
     <div className={styles.container}>
       <div className={styles.inner}>       
