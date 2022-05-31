@@ -6,6 +6,10 @@ import temp from "../../images/rush.svg";
 
 const Apply = () => {
     const clubName = useParams().clubname;
+    // let temp = {
+    //   {questionType : "Text", questionText : "어느 부문을 지원하시나요?",},
+    //   {}
+    // }
     useEffect(()=>{
       //api에서 받아옴
     },[])

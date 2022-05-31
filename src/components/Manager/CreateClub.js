@@ -80,8 +80,8 @@ function CreateClub() {
               <input type="text" id="president_name" onChange={(e) => changeAns(e)}></input>
             </div>
             <div className= {styles.element}>
-              <label id="president">회장 학번 (사이트 관리자) </label>
-              <input type="text" id="president" onChange={(e) => changeAns(e)}></input>
+              <label id="president_id">회장 학번 (사이트 관리자) </label>
+              <input type="text" id="president_id" onChange={(e) => changeAns(e)}></input>
             </div>
             <div className= {styles.element}>
               <label id="category">동아리 카테고리 </label>
