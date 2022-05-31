@@ -3,7 +3,7 @@ import { useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import ClubSummary from "./ClubSummary";
 import styles from './ClubInfo.module.css';
-import {Clubs_Info} from '../api/api';
+import {Clubs_Info} from '../../api/api';
 
 function ClubInfo() {
     const {clubcategory} = useParams();
@@ -27,7 +27,7 @@ function ClubInfo() {
     <div className={styles.clubs}>     
         <div className={styles.container}>
             {clubs && clubs.map((club,idx)=>(
-                <ClubSummary key =  {idx}info= {club} />
+                <ClubSummary key = {idx} info= {club} />
             ))}
         </div>
     </div>);

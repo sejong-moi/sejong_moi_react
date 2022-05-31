@@ -56,8 +56,16 @@ export const isPresident = (data) => API.post(`http://localhost:8000/club_api/is
 {
     headers:{'Content-Type': 'application/json'}
 })
-// get questions
+// set answer
 export const Answer_Question = (data) => API.post(`http://localhost:8000/club_api/answer_question`,JSON.stringify(data),
+{
+    headers:{'Content-Type': 'application/json'}
+})
+export const Send_Image = (data)=> API.post(`http://localhost:8000/club_api/upload_logo`,(data),
+{
+    headers:{'Content-Type': 'application/json'}
+})
+export const Create_Club = (data)=> API.post(`http://localhost:8000/club_api/register_club`,(data),
 {
     headers:{'Content-Type': 'application/json'}
 })

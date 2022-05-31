@@ -1,7 +1,7 @@
 
 import React, { useEffect,useState} from 'react';
 import styles from "./Home.module.css"
-import ClubSummary from "./ClubSummary";
+import ClubSummary from "./ClubInfos/ClubSummary";
 import {List_Ranking} from "../api/api";
 
 // 동아리 이미지 동아리 명 받아와야함
@@ -9,7 +9,7 @@ function Home() {
     const [clubs, setClubs] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const onClick = () => {
-        window.location.replace('/manage');
+        window.location.replace('/manage/createclub');
     }
     useEffect(() => { 
         List_Ranking().then((res)=> {

@@ -28,7 +28,6 @@ function ClubDetail() {
         if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
           keyEvent.preventDefault();
             alert("질문하기 버튼을 이용해주세요");
-
         }
       }
     const handleClick = (e) => {
@@ -37,7 +36,6 @@ function ClubDetail() {
             'club_name' : clubName,
             'question_text' : ques
         }
-        console.log(add);
         Add_Question(add).then((res)=> console.log(res));
         alert("질문을 등록 하였습니다")
     } 
@@ -95,13 +93,11 @@ function ClubDetail() {
                 "user_id" : data.id
             }
             isPresident(is_pres).then((res)=>{
-                console.log(res.data);
                 if (res.data === "True") setPres(true);
                 else setPres(false);
             })
         }      
         getUser();        
-        console.log("user 정보 : ", user)
 
         // 동아리 세부 정보 가져오기
         Club_Info(clubName).then((res)=>{
@@ -110,9 +106,6 @@ function ClubDetail() {
         }).catch(err=>{
             console.log(err);
         });       
-        
-         
-   
     }, [isLoading]);  
 
     const onClick = () => {            
@@ -187,8 +180,6 @@ function ClubDetail() {
        <GetLogin/>}
                 
     </div>
-        
-        
     );
 }
 

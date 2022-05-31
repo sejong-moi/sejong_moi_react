@@ -1,7 +1,7 @@
 
 import React, { useEffect,useState} from 'react';
 import styles from "./MyPage.module.css"
-import ClubSummary from "../components/ClubSummary";
+import ClubSummary from "../components/ClubInfos/ClubSummary";
 import GetLogin from "../components/Login/GetLogin";
 import { getCookie} from '../api/cookie';
 import { Club_Info } from '../api/api';
@@ -59,24 +59,13 @@ function MyPage() {
 
                 data.interesting.map((clubName) => (
                     Club_Info(clubName).then((res)=>{
-                        console.log("지금 받은것", res.data);
                         setInfos((prev)=>[...prev, res.data]);
-                        console.log("infos : ", infos);
                     }).catch(err=>{ 
                         console.log(err);
                     }) 
                 ))
             }      
             getUser();    
-            // let list = user.interesting;
-            // console.log("user 정보 : ", list)
-             
-             
-             
-            
-        //     setInfo([{"name" : "RUSH",
-        // "img_url" : "temp",
-        // "category" : "Athletic"}])
         setLoading(true);
         }
         else{
@@ -95,13 +84,17 @@ function MyPage() {
                         <ClubSummary type="2" info = {club}/>
                     ))
                     }
-                    {/* <ClubSummary type = "2" info = {info[0]}/>
-                    <ClubSummary type = "2" info = {info[0]}/>
-                    <ClubSummary type = "2" info = {info[0]}/>
-                    <ClubSummary type = "2" info = {info[0]}/>
-                    <ClubSummary type = "2" info = {info[0]}/>        */}
                 </div>           
-          </div>
+            </div>
+            <div className={styles.inner}>  
+                <h1>관리 목록</h1>     
+                <div className={styles.abb}>
+                    {infos.map((club) => (
+                        <ClubSummary type="2" info = {club}/>
+                    ))
+                    }
+                </div>           
+            </div>
         </div>:
         <GetLogin/>}
         </div>

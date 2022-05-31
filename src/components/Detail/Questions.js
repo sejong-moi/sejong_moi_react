@@ -40,8 +40,7 @@ function Questions({questions = {'questions_list' : []}, auth = false, user_id=0
                 <div className={styles.ques_ans}>
                     {questions.answers.answer_text}
                 </div>
-            </div>
-            
+            </div>            
         );
     }
     //답변 가능
@@ -51,8 +50,7 @@ function Questions({questions = {'questions_list' : []}, auth = false, user_id=0
                 <div>            
                 {questions.question_text}                
                 </div>
-                <div className={styles.form_}>
-                   
+                <div className={styles.form_}>                   
                         {
                             questions.answers.question_id === 0 ? 
                             <form  onKeyDown={onKeyDown}>
@@ -65,19 +63,9 @@ function Questions({questions = {'questions_list' : []}, auth = false, user_id=0
                             <div className={styles.ques_ans}>
                              {questions.answers.answer_text}
                             </div>
-
-                        }
-                                           
-
-                    
-                </div>
-                
-
+                        }                              
+                </div>               
             </div>
-            
-        );
-    }
-    
-}
+        );}}
 
 export default Questions;

@@ -91,33 +91,27 @@ export default function CenteredTabs() {
       <TabPanel value={value} index={1}>
       <div className="submit" style={{height:"76vh"}}>
         <div className="user_form" >
-            <div className="user_form_section">  
-          
-                    <div className="user_form_questions" style={{display:"flex",flexDirection:"column",marginBottom:"20px"}}>
-                      <div style={{display:"flex",flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}>
-                    <Typography  style={{fontSize:"15px",fontWeight:"400",letterSpacing: '.1px',lineHeight:'24px',paddingBottom:"8px",fontSize:"24px"}} >3 Responses</Typography>
-                    <div  ><IconButton>
-                    <MoreVertIcon className="form_header_icon" />
-                </IconButton>
-                </div>
+            <div className="user_form_section">            
+              <div className="user_form_questions" style={{display:"flex",flexDirection:"column",marginBottom:"20px"}}>
+                <div style={{display:"flex",flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}>
+                  <Typography  style={{fontSize:"15px",fontWeight:"400",letterSpacing: '.1px',lineHeight:'24px',paddingBottom:"8px",fontSize:"24px"}} >3 Responses</Typography>
+                  <div>
+                    <IconButton>
+                      <MoreVertIcon className="form_header_icon" />
+                    </IconButton>
+                  </div>
                 </div>
                 <br></br>
-                              <div  style={{marginBottom:"5px"}}>
-                                  <div style={{display: 'flex',fontSize:"12px",justifyContent:"flex-end"}}>
-                                        Accepting responses <Switch color="primary" size="small"/>   
-                                  </div>
-                                </div>
-                     
-                    </div>       
-       
-            <div className="user_footer">
-                Google Forms
-            </div>
-            </div>
-            
+                <div  style={{marginBottom:"5px"}}>
+                <div style={{display: 'flex',fontSize:"12px",justifyContent:"flex-end"}}>
+                  Accepting responses <Switch color="primary" size="small"/>   
+                </div>
+              </div>                     
+            </div>    
+          </div>
         </div>
-        </div>
-      </TabPanel>
-    </Paper>
+      </div>
+    </TabPanel>
+  </Paper>
   );
 }

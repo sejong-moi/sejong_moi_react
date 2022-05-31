@@ -3,6 +3,8 @@ import React, { useState, useEffect} from 'react';
 import GetLogin from '../Login/GetLogin';
 import styles from './CreateClub.module.css';
 import { getCookie} from '../../api/cookie';
+import {Send_Image,Create_Club} from "../../api/api";
+
 
 function CreateClub() {
     const [auth, setAuth] = useState();
@@ -12,13 +14,18 @@ function CreateClub() {
     const options= ["상시 모집","모집 마감","직접 입력"];
     const categorys = ["공연", "문화", "봉사","종교","운동", "학술"];
 
-    function file_upload(e,type){
-      console.log((e.target.files[0]))
-      formData.set(type, e.target.files[0] , e.target.files[0].name);      
+    function file_upload(e,type){      
+      const data = new FormData();
+      data.set("image", e.target.files[0] , e.target.files[0].name);
+
+      Send_Image(data).then((res)=>{
+        console.log(res);
+        formData.set(type, res.data );   
+      })          
     }
     function changeRecruit(e){
       formData.set("recruit", e.target.id);
-      if (e.target.id === "직접 입력") setWrite(true);
+      if (e.target.id === "직접 입력") setWrite(true); 
       else setWrite(false);
     } 
     function addCategory(e,idx){
@@ -30,28 +37,28 @@ function CreateClub() {
       formData.set(String(e.target.id),String(e.target.value));   
     }
     const handleClick = (e) => { 
-      for (var key of formData.keys()) {
-        console.log("key : ",key);
-      }
-      let i = 0;
-      for (var value of formData.values()) {
-        console.log("value : ",value);
-        i = i+1;
-      }             
       e.preventDefault();
-      fetch('http://localhost:8000/club_api/register',{
-          method: 'POST',          
-          body: formData
-      }).then(res => res.json())
-      .then(res=> {
-          if(res.result !== "Fail"){                
-              console.log(res);
-              console.log("success");
-          }else{
-              console.log("no access");
-              alert('내용을 채워주세요');
-          }
-      });
+      const data = {};
+      formData.forEach((value, key) => data[key] = value);
+
+      console.log(data);
+      Create_Club(JSON.stringify(data)).then((res)=>{
+        console.log(res);
+      })
+      // fetch('http://localhost:8000/club_api/register_club',{
+      //     method: 'POST',          
+      //     body: JSON.stringify(formData)
+      // }).then(res => res.json())
+      // .then(res=> {
+      //     console.log(res);
+      //     if(res.result !== "Fail"){                
+      //         console.log(res);
+      //         console.log("success");
+      //     }else{
+      //         console.log("no access");
+      //         alert('내용을 채워주세요');
+      //     }
+      // });
   }
     useEffect(() => { 
       if (!getCookie('jwt')) setAuth(false);
