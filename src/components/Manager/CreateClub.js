@@ -31,7 +31,7 @@ function CreateClub() {
     function addCategory(e,idx){
       var li = [idx,0]; 
       console.log(e.target.id)      
-      formData.set("category_kor",JSON.stringify(li));      
+      formData.set("category_kor",JSON.stringify(e.target.id));      
     }
     function changeAns(e) {
       formData.set(String(e.target.id),String(e.target.value));   
@@ -80,8 +80,8 @@ function CreateClub() {
               <input type="text" id="president_name" onChange={(e) => changeAns(e)}></input>
             </div>
             <div className= {styles.element}>
-              <label id="president_id">회장 학번 (사이트 관리자) </label>
-              <input type="text" id="president_id" onChange={(e) => changeAns(e)}></input>
+              <label id="president">회장 학번 (사이트 관리자) </label>
+              <input type="text" id="president" onChange={(e) => changeAns(e)}></input>
             </div>
             <div className= {styles.element}>
               <label id="category">동아리 카테고리 </label>
@@ -95,13 +95,13 @@ function CreateClub() {
             </div>
             <div className={styles.file_upload}>
               <p style={{ "font-size": "20px"}}>배경 이미지</p>
-              <label className={styles.img_btn} for="background_img">파일 업로드</label>
-              <input type="file" id="background_img" multiple="multiple" style={{display:"none"}}onChange={(e) => file_upload(e,"backgroud_img")} accept="image/*"/>
+              <label className={styles.img_btn} for="club_background_url">파일 업로드</label>
+              <input type="file" id="club_background_url" multiple="multiple" style={{display:"none"}}onChange={(e) => file_upload(e,"club_backgroud_url")} accept="image/*"/>
             </div>
             <div className={styles.file_upload}>
               <p style={{ "font-size": "20px"}}>로고 이미지</p>
-              <label className={styles.img_btn} for="club_logo_img">파일 업로드</label>
-              <input type="file" id="club_logo_img"  multiple="multiple" style={{display:"none"}} onChange={(e) => file_upload(e,"club_logo_img")} accept="image/*"/>
+              <label className={styles.img_btn} for="club_logo_url">파일 업로드</label>
+              <input type="file" id="club_logo_url"  multiple="multiple" style={{display:"none"}} onChange={(e) => file_upload(e,"club_logo_url")} accept="image/*"/>
             </div>
             <div className= {styles.element}>
               <label id="introduce_abb">동아리 요약 소개 (50자 이하) </label>

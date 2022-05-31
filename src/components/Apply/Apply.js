@@ -9,13 +9,7 @@ const Apply = () => {
     useEffect(()=>{
       //api에서 받아옴
     },[])
-  
-    // {
-    //   {"questionText": '질문 1', "questionType": 'radio', "options": "open": false, "required": false}
-    //   {"questionText": '체크해주세욤', "questionType": 'radio', "options":  "open": false, "required": false}
-    //   {"questionText": '면접 가능 날짜 선택해주세요', "questionType": 'Checkbox', "options": , "open": true, "required": false}
-     
-    // }
+    
  
     return (
     <div className={styles.container}>
@@ -26,12 +20,10 @@ const Apply = () => {
             </div>
             <div className={styles.club_name}>{clubName}</div>
         </div>  
-        <form className = {styles.apply_form}>
-          
+        <form className = {styles.apply_form}>          
           <Survey 
             questionType = "radio"
             questionText ="지원 분야" 
-
             options ={ [
               {text: "매니저", uuid: "2dsf-kjh12-a1nv-wjsdf"},
               {text: "선수", uuid: "3dsf-kjh12-a1nv-wjdsdf"},
