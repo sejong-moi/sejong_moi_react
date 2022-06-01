@@ -2,8 +2,6 @@ import React, { useState, useEffect} from 'react';
 import { Link,useParams } from 'react-router-dom';
 import GetLogin from "../Login/GetLogin";
 import Questions from './Questions';
-
-
 import styles from './ClubDetail.module.css';
 import main_img from "../../images/temp.png";
 import call from "../../images/temp_call.svg";
@@ -101,7 +99,7 @@ function ClubDetail() {
 
         // 동아리 세부 정보 가져오기
         Club_Info(clubName).then((res)=>{
-            console.log(clubName); 
+            console.log(res.data); 
             setClub(res.data);
         }).catch(err=>{
             console.log(err);
@@ -127,7 +125,7 @@ function ClubDetail() {
         <div>{auth? <div className={styles.container}>            
             <div className={styles.inner}>     
                 <div className={styles.main_img}>
-                    <img src={main_img} alt="img" className={styles.main__img} />  
+                    <img src= {club.club_background_url} alt="img" className={styles.main__img} />  
                 </div>             
                 <div className={styles.abb}>
                     <div className={styles.club_img}>
@@ -144,7 +142,7 @@ function ClubDetail() {
                     
                 </div>  
                 <div className= {styles.introduction}>
-                    {club.introduce}
+                    {club.introduce_long}
                 </div>
                 <div className= {styles.details}>
                     <div className={styles.icon_img}>

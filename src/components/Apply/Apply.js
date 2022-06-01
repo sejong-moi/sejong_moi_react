@@ -1,52 +1,64 @@
 import React, { useEffect, useState, useRef } from "react";
 import {Link,useParams } from 'react-router-dom';
-import Survey from "./Survey";
 import styles from "./Apply.module.css";
-import temp from "../../images/rush.svg";
+import img from "../../images/rush.svg";
 
 const Apply = () => {
     const clubName = useParams().clubname;
-    // let temp = {
-    //   {questionType : "Text", questionText : "어느 부문을 지원하시나요?",},
-    //   {}
-    // }
+    const [checkedList, setCheckedLists] = useState([{optionText : "선수"},{optionText: "매니저"}]);
+
+    const temp = [
+      {questionType : "radio", questionText : "어느 부문을 지원하시나요?", options : [{optionText : "선수"},{optionText: "매니저"}] ,open : true, required : true},
+      {questionType : "text", questionText : "자기 소개 부탁드립니다", options : [{optionText : "작성해주세요"},{optionText: "더 할말은?"}] ,open : true, required : true},
+    ]
+    const onChecked =(e) =>{
+      console.log(e.target.id);
+    }
+    const handleInput = (e) => {
+      console.log(e.target.value);
+    }
     useEffect(()=>{
       //api에서 받아옴
     },[])
-    
- 
     return (
     <div className={styles.container}>
       <div className={styles.inner}>       
         <div className={styles.abb}>
             <div className={styles.club_img}>
-                <img src = {temp} alt = {clubName} ></img>
+                <img src = {img} alt = {clubName} ></img>
             </div>
             <div className={styles.club_name}>{clubName}</div>
         </div>  
         <form className = {styles.apply_form}>          
-          <Survey 
-            questionType = "radio"
-            questionText ="지원 분야" 
-            options ={ [
-              {text: "매니저", uuid: "2dsf-kjh12-a1nv-wjsdf"},
-              {text: "선수", uuid: "3dsf-kjh12-a1nv-wjdsdf"},
-            ]}
-          />
-          <Survey 
-            questionType = "checkbox"
-            questionText ="입단 테스트 가능 날짜를 선택해주세요." 
-
-            options ={ [
-              {text: "4월 5일", uuid: "2dsf-kjh12-a1nv-wjsdf"},
-              {text: "4월 6일", uuid: "3dsf-kjh12-a1nv-wjdsdf"},
-              {text: "4월 7일", uuid: "4dsf-8888-19dn-1jsd3"},		
-            ]}
-          />
-          <Survey 
-            questionType = "text"
-            questionText ="짧은 자기 소개 부탁드립니다."             
-          />  
+          {temp && temp.map((ques,idx)=>(
+            ques.questionType === "text" ? 
+            <div className={styles.ques_container}>
+              <div className ={styles.ques}>{ques.questionText}</div>
+              <input className ={styles.ques_ans}
+                  type ="text" 
+                  placeholder="여기 작성해주세요"
+                  onChange={handleInput}
+              />
+          </div> :
+          ques.questionType === "radio" ? 
+          <div className={styles.ques_container}>
+            <div className ={styles.ques}>{ques.questionText}</div>
+            {ques.options.map((list)=>(
+               <div className={styles.checkbox_container}>
+               <input className ={styles.ques_ans}
+                  key = {list.id}
+                  type ="radio" 
+                  name="radio"
+                  placeholder="여기 작성해주세요"
+                  onChange={onChecked}
+               />
+               <div>{list.optionText}</div>
+               </div>
+            ))}
+            
+         </div>:
+         null
+          ))} 
           
           <Link to= {`/center/${clubName}/apply_success`} style ={{textDecoration:'None'}}>
             <button className={styles.btn_apply} >신청하기</button>

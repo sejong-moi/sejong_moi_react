@@ -126,9 +126,27 @@ function Question_form() {
                                     <input type={ques.questionType}  style={{marginRight:"10px"}}/> :
                                     <ShortTextIcon style={{marginRight:"10px"}} />
                                   }
-                                    <div>
-                                        <input type="text" className="text_input" placeholder="option"  value={ques.options[j].optionText}onChange={(e)=>{handleOptionValue(e.target.value, i, j)}}></input>
-                                    </div>
+                                <div>
+                                    {
+                                        (ques.questionType==="text") ? 
+                                        <input type="text" 
+                                    className="text_input" 
+                                    placeholder="option"  
+                                    value={ques.options[j].optionText}
+                                    
+                                    onChange={(e)=>{handleOptionValue(e.target.value, i, j)}}
+                                    ></input>:
+                                    <input type="text" 
+                                    disabled= "true"
+                                    className="text_input" 
+                                    placeholder="option"
+                                      
+                                    value={ques.options[j].optionText}
+                                    onChange={(e)=>{handleOptionValue(e.target.value, i, j)}}
+                                    ></input>
+                                    }
+                                    
+                                </div>
                                     <IconButton aria-label="delete" onClick={()=>{removeOption(i, j)}}>
                                             <CloseIcon />
                                     </IconButton>
