@@ -9,13 +9,14 @@ import { Club_Info } from '../api/api';
 // 동아리 이미지 동아리 명 받아와야함
 function MyPage() {
     const [auth, setAuth] = useState();
-    const [infos, setInfos] = useState([]);
-    // let clubs = [];
+    const [interests, setInterests] = useState([]);
+    const [manages, setManages] = useState([]);
     const [user,setUser] = useState([]);
 
     const [isLoading, setLoading] = useState(false);
 
-    useEffect(() => { 
+    useEffect(() => {
+        
         if (getCookie('jwt')) {
             setAuth(true);
 
@@ -55,11 +56,19 @@ function MyPage() {
                 // We're done!
                 let data = JSON.parse(result);
                 setUser(data);
-                console.log("interesting list", data.interesting);
+                console.log("user data", data);
+                //data.clubs_managed_by
 
                 data.interesting.map((clubName) => (
                     Club_Info(clubName).then((res)=>{
-                        setInfos((prev)=>[...prev, res.data]);
+                        setInterests((prev)=>[...prev, res.data]);
+                    }).catch(err=>{ 
+                        console.log(err);
+                    }) 
+                ))
+                data.clubs_managed_by.map((clubName) => (
+                    Club_Info(clubName).then((res)=>{
+                        setManages((prev)=>[...prev, res.data]);
                     }).catch(err=>{ 
                         console.log(err);
                     }) 
@@ -80,7 +89,7 @@ function MyPage() {
             <div className={styles.inner}>  
                 <h1>관심목록</h1>     
                 <div className={styles.abb}>
-                    {infos.map((club) => (
+                    {interests.map((club) => (
                         <ClubSummary type="2" info = {club}/>
                     ))
                     }
@@ -89,8 +98,8 @@ function MyPage() {
             <div className={styles.inner}>  
                 <h1>관리 목록</h1>     
                 <div className={styles.abb}>
-                    {infos.map((club) => (
-                        <ClubSummary type="2" info = {club}/>
+                    {manages.map((club) => (
+                        <ClubSummary type="4" info = {club}/>
                     ))
                     }
                 </div>           

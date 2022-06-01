@@ -6,6 +6,8 @@ import ClubInfo from "./components/ClubInfos/ClubInfo";
 import ClubDetail from "./components/Detail/ClubDetail";
 import Login from "./components/Login/Login";
 import CreateClub from "./components/Manager/CreateClub";
+import UpdateClub from "./components/Manager/UpdateClub";
+
 import Manage from "./components/Manager/Manage";
 
 
@@ -34,6 +36,9 @@ function App(){
       <Route path = "/mypage" element={<MyPage/>}/>
       <Route path = "/manage" element={<Manage/>}/>
       <Route path = "/manage/createclub" element = {<CreateClub/>}/>
+      /manage/update_club/
+      <Route path = "/manage/update_club/:clubname" element = {<UpdateClub/>}/>
+
       <Route path ="/temp" element={<CenteredTabs/>}/>     
 
       <Route path = "/" element={<Main/>}/>

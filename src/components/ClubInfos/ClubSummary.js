@@ -11,6 +11,8 @@ function ClubSummary({info = [], type = "1"}) {
     useEffect(()=>{
         console.log("summary까지는 넘어옴");
         setLoading(true);
+        // info.introduce = info.introduce.replace(/<br>/ig,"\n");
+
     },[isLoading,category])
 
     if (type === "1"){
@@ -52,6 +54,21 @@ function ClubSummary({info = [], type = "1"}) {
                             </div>
                             <div className={styles.info_container}>
                                 <p ><Link to={`/center/${info.category_eng}/${info.name}/detail`} style={{textDecoration : 'none'}}>{info.name}</Link></p>
+                            </div> 
+                            <div> ~ {info.recruit} </div>   
+                        </div> 
+                </div>
+        );
+    }
+    else if(type === "4"){
+        return(  
+            <div className={styles.interest_container}>            
+                        <div className={styles.interest_clubs}>
+                            <div className ={styles.interest_img_container}>
+                                <img src = {info.club_logo_url} alt = "img" className={styles.club_img}></img>
+                            </div>
+                            <div className={styles.info_container}>
+                                <p ><Link to={`/manage/update_club/${info.name}`} style={{textDecoration : 'none'}}>{info.name}</Link></p>
                             </div> 
                             <div> ~ {info.recruit} </div>   
                         </div> 

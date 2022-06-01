@@ -3,7 +3,6 @@ import { Link,useParams } from 'react-router-dom';
 import GetLogin from "../Login/GetLogin";
 import Questions from './Questions';
 import styles from './ClubDetail.module.css';
-import main_img from "../../images/temp.png";
 import call from "../../images/temp_call.svg";
 import yes from "../../images/Yes.svg";
 import no from "../../images/No.svg";
@@ -101,6 +100,7 @@ function ClubDetail() {
         Club_Info(clubName).then((res)=>{
             console.log(res.data); 
             setClub(res.data);
+            // club.introduce_long =club.introduce_long.replace(/<br>/ig,"\n")
         }).catch(err=>{
             console.log(err);
         });       
