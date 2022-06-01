@@ -5,12 +5,12 @@ import { Link,useParams } from 'react-router-dom';
 import GetLogin from '../Login/GetLogin';
 import styles from './CreateClub.module.css';
 import { getCookie} from '../../api/cookie';
-import {Send_Image,Create_Club,Club_Info} from "../../api/api";
+import {Send_Image,Update_Club,Club_Info} from "../../api/api";
 
 
 function UpdateClub() {
     const [auth, setAuth] = useState();
-    const [write, setWrite] = useState(false);
+
     const [clubs,setClubs]=useState([]);
 
     const [data,setData] = useState([]);
@@ -40,19 +40,11 @@ function UpdateClub() {
         // formData.set(type, res.data );   
       })          
     }
-    function changeAns(e){
-      // let prev = [data]
-      // console.log(prev)
-      // console.log(e.target.id)
-      // console.log(prev["introduce_long"])
-      // // console.log(prev.(e.target.id))
-      // prev[e.target.id] = prev[e.target.id] + e.target.value
-      // setData(prev);
-    }
+
     function changeRecruit(e){
-      // formData.set("recruit", e.target.id);
-      // if (e.target.id === "직접 입력") setWrite(true); 
-      // else setWrite(false);
+      let prev = {...data}; 
+      prev.recruit = e.target.id; 
+      setData(prev);      
     } 
     function addCategory(e,idx){
       var li = [idx,];      
@@ -65,8 +57,8 @@ function UpdateClub() {
     const handleClick = (e) => { 
       e.preventDefault();
 
-      console.log(data);
-      Create_Club(JSON.stringify(data)).then((res)=>{
+      console.log("send" ,data);
+      Update_Club(JSON.stringify(data)).then((res)=>{
         console.log(res);
       })
   }
@@ -102,12 +94,12 @@ function UpdateClub() {
             <div className={styles.file_upload}>
               <p style={{ "font-size": "20px"}}>배경 이미지</p>
               <label className={styles.img_btn} for="club_background_url">파일 업로드</label>
-              <input type="file" id="club_background_url" multiple="multiple" style={{display:"none"}}onChange={(e) => file_upload(e,"club_backgroud_url")} accept="image/*"/>
+              <input type="file" id="club_background_url"  style={{display:"none"}}onChange={(e) => file_upload(e,"club_backgroud_url")} accept="image/*"/>
             </div>
             <div className={styles.file_upload}>
               <p style={{ "font-size": "20px"}}>로고 이미지</p>
               <label className={styles.img_btn} for="club_logo_url">파일 업로드</label>
-              <input type="file" id="club_logo_url"  multiple="multiple" style={{display:"none"}} onChange={(e) => file_upload(e,"club_logo_url")} accept="image/*"/>
+              <input type="file" id="club_logo_url"  style={{display:"none"}} onChange={(e) => file_upload(e,"club_logo_url")} accept="image/*"/>
             </div>
             <div className= {styles.element}>
               <label id="introduce">동아리 요약 소개 (50자 이하) </label>
