@@ -69,3 +69,11 @@ export const Create_Club = (data)=> API.post(`http://localhost:8000/club_api/reg
 {
     headers:{'Content-Type': 'application/json'}
 })
+
+
+// recruit list
+export const List_Recruiting= () => API.get(`http://localhost:8000/club_api/list_recruiting`,{
+    headers: {
+        'Content-Type': 'application/json',
+    }
+})

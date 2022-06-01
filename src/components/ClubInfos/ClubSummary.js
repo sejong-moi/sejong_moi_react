@@ -43,6 +43,21 @@ function ClubSummary({info = [], type = "1"}) {
                 </div>
         );
     }
+    else if(type === "3"){
+        return(  
+            <div className={styles.interest_container}>            
+                        <div className={styles.interest_clubs}>
+                            <div className ={styles.interest_img_container}>
+                                <img src = {info.club_logo_url} alt = "img" className={styles.club_img}></img>
+                            </div>
+                            <div className={styles.info_container}>
+                                <p ><Link to={`/center/${info.category_eng}/${info.name}/detail`} style={{textDecoration : 'none'}}>{info.name}</Link></p>
+                            </div> 
+                            <div> ~ {info.recruit} </div>   
+                        </div> 
+                </div>
+        );
+    }
     return(
         <div></div>
     );

@@ -2,19 +2,25 @@
 import React, { useEffect,useState} from 'react';
 import styles from "./Home.module.css"
 import ClubSummary from "./ClubInfos/ClubSummary";
-import {List_Ranking} from "../api/api";
+import {List_Ranking,List_Recruiting} from "../api/api";
 
 // 동아리 이미지 동아리 명 받아와야함
 function Home() {
-    const [clubs, setClubs] = useState([]);
+    const [interests, setInterests] = useState([]);
+    const [recruits, setRecruits] = useState([]);
+
     const [isLoading, setLoading] = useState(false);
     const onClick = () => {
         window.location.replace('/manage/createclub');
     }
     useEffect(() => { 
+        setLoading(true);
         List_Ranking().then((res)=> {
-            setClubs([...res.data]);
-            setLoading(true);
+            setInterests([...res.data]); 
+        }) 
+        List_Recruiting().then((res)=> {
+            setRecruits([...res.data]);
+            console.log("받아옴",res);
         }) 
       }, [isLoading]);
   
@@ -24,7 +30,7 @@ function Home() {
                 <h1>Ranking</h1>     
                 <div className={styles.abb}>
                     {
-                        clubs && clubs.map((club,idx)=> (
+                        interests && interests.map((club,idx)=> (
                             <ClubSummary type = "2" info = {club}/>
                         ))
                     }                        
@@ -34,8 +40,8 @@ function Home() {
                 <h1>Recruiting</h1>     
                 <div className={styles.abb}>
                     {
-                        clubs && clubs.map((club,idx)=> (
-                            <ClubSummary type = "2" info = {club}/>
+                        recruits && recruits.map((club,idx)=> (
+                            <ClubSummary type = "3" info = {club}/>
                         ))
                     }                        
                 </div>            

@@ -43,12 +43,13 @@ function CreateClub() {
       formData.forEach((value, key) => data[key] = value);
       
       var text = data.introduce_long;
-      text =text.replaceAll('\n', '<br/>');
+      text =text.replace('\n', '<br/>');
       data.introduce_long = text;
 
       text = data.introduce;
-      text =text.replaceAll('\n', '<br/>');
+      text =text.replace('\n', '<br/>');
       data.introduce = text;
+      
       console.log(data);
       Create_Club(JSON.stringify(data)).then((res)=>{
         console.log(res);
