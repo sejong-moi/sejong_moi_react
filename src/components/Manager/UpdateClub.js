@@ -15,7 +15,7 @@ function UpdateClub() {
     const clubName = useParams().clubname;
 
     const options= ["상시 모집","모집 마감"];
-    const categorys = ["공연", "문화", "봉사","종교","운동", "학술"];
+    const categorys = ["공연", "문화", "봉사","종교","체육", "학술"];
 
     useEffect(() => { 
         Club_Info(clubName).then((res)=>{
