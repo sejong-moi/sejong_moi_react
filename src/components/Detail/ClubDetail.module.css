@@ -93,14 +93,25 @@
     width:90%;
     margin-top: 20px;
     display:flex;
+    flex-direction: column;
     justify-content:flex-start;
-    align-items: center;
+
+}
+.content{
+    margin-top: 10px;
+    font-size:max(16px,1.2vw);
+
+}
+.element{
+    display:flex;
+    margin-top: 10px;
+    font-size:max(16px,1.2vw);
+    
 }
 .icon_img{
-    max-width: 30px;
-    width:5vw;
-    height: 5vw;;
+    width:min(30px,2vw);
     margin-right: 10px;
+
 }
 .icon_img img{
     width : 100%;

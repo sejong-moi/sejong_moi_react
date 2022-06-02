@@ -1,16 +1,13 @@
 
-import React, { useState, useEffect} from 'react';
-import { Link,useParams } from 'react-router-dom';
-
+import { useState, useEffect} from 'react';
+import { useParams } from 'react-router-dom';
 import GetLogin from '../Login/GetLogin';
 import styles from './CreateClub.module.css';
 import { getCookie} from '../../api/cookie';
 import {Send_Image,Update_Club,Club_Info} from "../../api/api";
 
-
 function UpdateClub() {
     const [auth, setAuth] = useState();
-    const [clubs,setClubs]=useState([]);
     const [data,setData] = useState([]);
     const clubName = useParams().clubname;
 
@@ -19,13 +16,24 @@ function UpdateClub() {
 
     useEffect(() => { 
         Club_Info(clubName).then((res)=>{
-            console.log(res.data);
-            setClubs(res.data);
             setData(res.data);            
         }) 
         if (!getCookie('jwt')) setAuth(false);
         else setAuth(true);
     }, []);
+
+    const handleClick = (e) => { 
+      e.preventDefault();
+      Update_Club(JSON.stringify(data)).then((res)=>{
+        if(res.data.result === "Fail"){
+          alert("내용을 채워주세요");
+        }
+        else{
+          alert("동아리 수정 성공!");
+          window.location.replace('/');
+        }
+      })
+    }
 
     function file_upload(e,type){      
       const data = new FormData();
@@ -34,7 +42,6 @@ function UpdateClub() {
         console.log(res);
       })          
     }
-
     function changeRecruit(e){
       let prev = {...data}; 
       prev.recruit = e.target.id; 
@@ -46,16 +53,8 @@ function UpdateClub() {
       prev.category_kor = e.target.id; 
       prev.category=li;
       setData(prev);
-      console.log(prev);
     }
-    const handleClick = (e) => { 
-      e.preventDefault();
-      console.log(data);
-      Update_Club(JSON.stringify(data)).then((res)=>{
-        console.log(res);
-      })
-  }
-    
+
     return (
     <div>
       {auth? <div className={styles.container}>
@@ -154,7 +153,5 @@ function UpdateClub() {
     </div> :
     <GetLogin/>}
     </div> 
-    );
-}
-
+    );}
 export default UpdateClub;

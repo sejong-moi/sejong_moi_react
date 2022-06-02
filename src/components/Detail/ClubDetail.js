@@ -141,15 +141,18 @@ function ClubDetail() {
                     <p className={styles.interest_content}>관심 담기</p>                 
                 </div>  
                 <div className= {styles.introduction}>
-                    {club.introduce_long}
+                    <pre style={{"white-space": "pre-wrap"}}>{club.introduce_long}</pre>
                 </div>
                 <div className= {styles.details}>
-                    <div className={styles.icon_img}>
-                        <img src = {call} alt = "call" ></img>
+                    <div className={styles.content}>모집기간 : {club.is_recruiting}(~{club.recruit})</div>
+                    <div className={styles.element}>
+                        <div className={styles.icon_img}>
+                            <img src = {call} alt = "call" ></img>
+                        </div>
+                        <div className={styles.content}>010-1234-5678</div>
                     </div>
-                    <div className={styles.content}>010-1234-5678</div>
                 </div>                 
-                {
+                { 
                     club.apply_link !== "" ? 
                     <a href={club.apply_link} style ={{textDecoration:'None'}}>
                         <button className={styles.btn} >신청하기</button> 

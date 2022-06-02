@@ -8,12 +8,7 @@ export const Clubs_Info = (club_category) => API.get(`http://localhost:8000/club
     }
 })
 
-// * 개별 동아리 정보 가져오기
-export const Club_Info = (club_name) => API.get(`http://localhost:8000/club_api/club/${club_name}`,{
-    headers: { 
-        'Content-Type': 'application/json'
-    }
-})
+
 
 export const Is_Interested = (data) => API.get(`http://localhost:8000/club_api/is_interested`,JSON.stringify(data),{
     headers:{
@@ -61,14 +56,23 @@ export const Answer_Question = (data) => API.post(`http://localhost:8000/club_ap
 {
     headers:{'Content-Type': 'application/json'}
 })
+
 export const Send_Image = (data)=> API.post(`http://localhost:8000/club_api/upload_logo`,(data),
 {
     headers:{'Content-Type': 'application/json'}
 })
+// * 개별 동아리 정보 가져오기
+export const Club_Info = (club_name) => API.get(`http://localhost:8000/club_api/club/${club_name}`,{
+    headers: { 
+        'Content-Type': 'application/json'
+    }
+})
+// 동아리 생성
 export const Create_Club = (data)=> API.post(`http://localhost:8000/club_api/register`,(data),
 {
     headers:{'Content-Type': 'application/json'}
 })
+// 동아리 정보 수정
 export const Update_Club = (data)=> API.post(`http://localhost:8000/club_api/update`,(data),
 {
     headers:{'Content-Type': 'application/json'}

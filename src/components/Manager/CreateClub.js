@@ -9,6 +9,11 @@ import {Send_Image,Create_Club} from "../../api/api";
 
 function CreateClub() {
     const [auth, setAuth] = useState();
+    useEffect(() => { 
+      if (!getCookie('jwt')) setAuth(false);
+      else setAuth(true);
+    }, []);
+
     const [write, setWrite] = useState(false);
     const formData = new FormData();
 
