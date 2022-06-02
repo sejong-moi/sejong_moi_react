@@ -40,20 +40,17 @@ function CreateClub() {
     const handleClick = (e) => { 
       e.preventDefault();
       const data = {};
-      formData.forEach((value, key) => data[key] = value);
-      // console.log("data is ",data)
-      // var text = data.introduce_long;
-      // console.log(typeof(text));
-      // text =text.toString().replace(/\n/gi, '<br>');
-      // data.introduce_long = text;
-
-      // text = data.introduce;
-      // text =text.toString().replace(/\n/gi, '<br>');
-      // data.introduce = text;
-      
+      formData.forEach((value, key) => data[key] = value);      
       console.log(data);
       Create_Club(JSON.stringify(data)).then((res)=>{
         console.log(res);
+        if(res.data.result === "Fail"){
+          alert("내용을 채워주세요");
+        }
+        else{
+          alert("동아리 등록 성공!");
+          window.location.replace('/');
+        }
       })
   }
     useEffect(() => { 
@@ -110,6 +107,10 @@ function CreateClub() {
             <div className= {styles.element}>
               <label id="president_phone_number">연락처  (ex) 010-1234-5678</label>
               <input type="text" id="president_phone_number" onChange={(e) => changeAns(e)}></input>
+            </div>
+            <div className= {styles.element}>
+              <label id="apply_link">신청서 link</label>
+              <input type="text" id="apply_link" onChange={(e) => changeAns(e)}></input>
             </div>
             <div className= {styles.element}>
               <label id="location">동아리방 위치 </label>

@@ -10,9 +10,7 @@ import {Send_Image,Update_Club,Club_Info} from "../../api/api";
 
 function UpdateClub() {
     const [auth, setAuth] = useState();
-
     const [clubs,setClubs]=useState([]);
-
     const [data,setData] = useState([]);
     const clubName = useParams().clubname;
 
@@ -20,12 +18,10 @@ function UpdateClub() {
     const categorys = ["공연", "문화", "봉사","종교","운동", "학술"];
 
     useEffect(() => { 
-        console.log(clubName);
         Club_Info(clubName).then((res)=>{
             console.log(res.data);
             setClubs(res.data);
-            setData(res.data);
-            
+            setData(res.data);            
         }) 
         if (!getCookie('jwt')) setAuth(false);
         else setAuth(true);
@@ -34,10 +30,8 @@ function UpdateClub() {
     function file_upload(e,type){      
       const data = new FormData();
       data.set("image", e.target.files[0] , e.target.files[0].name);
-
       Send_Image(data).then((res)=>{
         console.log(res);
-        // formData.set(type, res.data );   
       })          
     }
 
@@ -56,8 +50,7 @@ function UpdateClub() {
     }
     const handleClick = (e) => { 
       e.preventDefault();
-
-      console.log("send" ,data);
+      console.log(data);
       Update_Club(JSON.stringify(data)).then((res)=>{
         console.log(res);
       })
@@ -79,7 +72,7 @@ function UpdateClub() {
             </div>
             <div className= {styles.element}>
               <label id="president_id">회장 학번 (사이트 관리자) </label>
-              <input type="text" id="president_id" value = {data.president_id} onChange={(e) => {let prev = {...data}; prev.president_name = e.target.value; setData(prev)}}></input>
+              <input type="text" id="president_id" value = {data.president_id} onChange={(e) => {let prev = {...data}; prev.president_id = e.target.value; setData(prev)}}></input>
             </div>
             <div className= {styles.element}>
               <label id="category">동아리 카테고리 </label>
@@ -118,9 +111,14 @@ function UpdateClub() {
               <input type="text" id="location" onChange={(e) => {let prev = {...data}; prev.location = e.target.value; setData(prev)}}></input>
             </div>
             <div className= {styles.element}>
+              <label id="apply_link">신청서 link</label>
+              <input type="text" id="apply_link"onChange={(e) => {let prev = {...data}; prev.apply_link = e.target.value; setData(prev)}}></input>
+            </div>
+            <div className= {styles.element}>
               <label id="youtube">youtube link</label>
               <input type="text" id="youtube" onChange={(e) => {let prev = {...data}; prev.youtube = e.target.value; setData(prev)}}></input>
             </div>
+            
             <div className= {styles.element}>
               <label id="facebook">facebook link</label>
               <input type="text" id="facebook" onChange={(e) => {let prev = {...data}; prev.facebook = e.target.value; setData(prev)}}></input>

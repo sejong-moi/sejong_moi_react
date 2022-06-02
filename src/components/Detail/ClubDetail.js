@@ -139,7 +139,6 @@ function ClubDetail() {
                         }
                     </div>
                     <p className={styles.interest_content}>관심 담기</p>                 
-                    
                 </div>  
                 <div className= {styles.introduction}>
                     {club.introduce_long}
@@ -149,10 +148,15 @@ function ClubDetail() {
                         <img src = {call} alt = "call" ></img>
                     </div>
                     <div className={styles.content}>010-1234-5678</div>
-                </div> 
-                <Link to= {`/center/${clubName}/apply`} style ={{textDecoration:'None'}}>
-                    <button className={styles.btn} >신청하기</button>
-                </Link>  
+                </div>                 
+                {
+                    club.apply_link !== "" ? 
+                    <a href={club.apply_link} style ={{textDecoration:'None'}}>
+                        <button className={styles.btn} >신청하기</button> 
+                    </a>
+                    : null
+                }
+                
                 <div className={styles.qna}>  
                     <h1>Q n A</h1>  
                     {club && club.questions_list.map((ques,id) => (

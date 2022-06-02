@@ -20,7 +20,6 @@ function Home() {
         }) 
         List_Recruiting().then((res)=> {
             setRecruits([...res.data]);
-            console.log("받아옴",res);
         }) 
       }, [isLoading]);
   

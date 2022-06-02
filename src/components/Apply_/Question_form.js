@@ -130,20 +130,20 @@ function Question_form() {
                                     {
                                         (ques.questionType==="text") ? 
                                         <input type="text" 
-                                    className="text_input" 
-                                    placeholder="option"  
-                                    value={ques.options[j].optionText}
-                                    
-                                    onChange={(e)=>{handleOptionValue(e.target.value, i, j)}}
-                                    ></input>:
-                                    <input type="text" 
-                                    disabled= "true"
-                                    className="text_input" 
-                                    placeholder="option"
-                                      
-                                    value={ques.options[j].optionText}
-                                    onChange={(e)=>{handleOptionValue(e.target.value, i, j)}}
-                                    ></input>
+                                            className="text_input" 
+                                            placeholder="option"  
+                                            value={ques.options[j].optionText}
+                                            
+                                            onChange={(e)=>{handleOptionValue(e.target.value, i, j)}}
+                                        ></input>
+                                        :<input type="text" 
+                                            disabled= "true"
+                                            className="text_input" 
+                                            placeholder="option"
+                                            
+                                            value={ques.options[j].optionText}
+                                            onChange={(e)=>{handleOptionValue(e.target.value, i, j)}}
+                                        ></input>
                                     }
                                     
                                 </div>
@@ -154,12 +154,16 @@ function Question_form() {
                         ))}
                         {ques.options.length < 5 ? (
                                 <div className={styles.add_question_body}>
-                                <FormControlLabel disabled control={ 
-                                
-                                (ques.questionType!=="text") ? 
-                                <input type={ques.questionType}  color="primary" inputProps={{ 'aria-label': 'secondary checkbox' }} style={{marginLeft:"10px",marginRight:"10px"}} disabled/> :
-                                <ShortTextIcon style={{marginRight:"10px"}} />
-
+                                <FormControlLabel disabled control={                                 
+                                    (ques.questionType!=="text") ? 
+                                    <input 
+                                        type={ques.questionType}  
+                                        color="primary" 
+                                        inputProps={{ 'aria-label': 'secondary checkbox' }} 
+                                        style={{marginLeft:"10px",marginRight:"10px"}} 
+                                        disabled
+                                    /> :
+                                    <ShortTextIcon style={{marginRight:"10px"}} />
                                 } label={
                                 <div>
                                     <Button size="small" onClick={()=>{addOption(i)}} style={{textTransform: 'none',color:"#4285f4",fontSize:"13px",fontWeight:"600"}}>Add Option</Button>
