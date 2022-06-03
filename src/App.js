@@ -8,7 +8,6 @@ import Login from "./components/Login/Login";
 import CreateClub from "./components/Manager/CreateClub";
 import UpdateClub from "./components/Manager/UpdateClub";
 
-import Manage from "./components/Manager/Manage";
 
 
 import Apply from "./components/Apply/Apply";
@@ -34,7 +33,6 @@ function App(){
       <Route path = "/center/:clubname/apply" element={<Apply/>}/>   
       <Route path = "/login" element={<Login />}/>
       <Route path = "/mypage" element={<MyPage/>}/>
-      <Route path = "/manage" element={<Manage/>}/>
       <Route path = "/manage/createclub" element = {<CreateClub/>}/>
       /manage/update_club/
       <Route path = "/manage/update_club/:clubname" element = {<UpdateClub/>}/>

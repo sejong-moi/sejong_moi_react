@@ -1,7 +1,7 @@
 import React, { Redirect,useEffect, useState} from 'react';
 import { getCookie, setCookie } from '../../api/cookie';
 import loginstyles from './Login.module.css';
-
+import {User_Login} from '../../api/api';
 
 function Login() {
     const [id,setId] = useState('');
@@ -23,27 +23,18 @@ function Login() {
         };         
         e.preventDefault();
         
-        // login api
-        fetch('http://localhost:8000/login_api/login',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(user)
-        }).then(res => res.json())
-        .then(res=> {
+        User_Login(JSON.stringify(user)).then(res => res.data).then((res)=>{
+            console.log(res);
             if(res.jwt){              
                 setCookie('jwt',res.jwt);
-                console.log(getCookie('login-token'));
                 window.location.replace('/');
                 setAuth(true);
             }else{
-                console.log("no access");
                 setId('');
                 setPw('');
                 alert('아이디 또는 비밀번호가 일치하지 않습니다.');
             }
-        });
+        })
     }
 
     return (

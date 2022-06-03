@@ -1,6 +1,11 @@
 import axios from 'axios';
 const API = axios.create();
-
+// * login
+export const User_Login = (user) => API.post('http://localhost:8000/login_api/login', user,{
+    headers:{
+        'Content-Type': 'application/json' 
+    }
+})
 // * 카테고리 별 동아리 정보 가져오기
 export const Clubs_Info = (club_category) => API.get(`http://localhost:8000/club_api/list_${club_category}`,{
     headers: {
@@ -27,11 +32,7 @@ export const Del_Interested = (data) => API.post(`http://localhost:8000/club_api
     }
 })
 
-// * login
-export const User_Login = ((user) => API.post('http://localhost:8000/login_api/login', JSON.stringify(user),
-	{headers:{'Content-Type': 'application/json' }
-    })
-    );
+
 
 
 // ranking
